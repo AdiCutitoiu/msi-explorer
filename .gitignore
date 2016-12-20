@@ -46,6 +46,7 @@ Network Trash Folder
 Temporary Items
 .apdisk
 MsiExplorer/Debug
+*.ipch
 MsiExplorer/Release
 MsiExplorer/MsiFramework/Debug
 MsiExplorer/MsiToXML/Debug
