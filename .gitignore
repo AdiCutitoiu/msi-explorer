@@ -45,14 +45,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-MsiExplorer/Debug
-MsiExplorer/Release
-MsiExplorer/MsiFramework/Debug
-MsiExplorer/MsiToXML/Debug
-MsiExplorer/MsiToXML/Release
-MsiExplorer/CustAct/Debug
-MsiExplorer/CustAct/Release
-MsiExplorer/Release
-MsiExplorer/CustAct/.clang-format
-*.clang-format
-MsiExplorer/CustAct/Release/CustAct.Build.CppClean.log
