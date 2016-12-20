@@ -27,9 +27,6 @@
     <ClInclude Include="Record.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsiTableView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MsiPropertyGetterSetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -37,6 +34,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MsInstallerDatabase.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsiTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -47,9 +47,6 @@
     <ClCompile Include="Record.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsiTableView.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="MsiPropertyGetterSetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -57,6 +54,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerDatabase.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsiTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
