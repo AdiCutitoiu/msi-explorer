@@ -10,8 +10,10 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <algorithm>
 #include <iostream>
 #include <string>
+#include <vector>
 #include <windows.h>
 
 #include <stdio.h>

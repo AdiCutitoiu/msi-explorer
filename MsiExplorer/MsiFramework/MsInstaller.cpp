@@ -1,30 +1,37 @@
 #include "stdafx.h"
 #include "MsInstaller.h"
+#include "MsInstallerDatabase.h"
 #include "MsiPropertyGetterSetter.h"
 
-Msi::Msi(MSIHANDLE aSession)
+MsInstaller::MsInstaller(MSIHANDLE aSession)
   : mSession(aSession)
   , mOpenByHandle(true)
 {
 }
 
-Msi::Msi(const wstring & aMsiPath)
+MsInstaller::MsInstaller(const wstring & aMsiPath)
 {
   ::MsiOpenPackage(aMsiPath.c_str(), &mSession);
 }
 
-Msi::~Msi()
+MsInstaller::~MsInstaller()
 {
   if (!mOpenByHandle)
     ::MsiCloseHandle(mSession);
 }
 
-wstring Msi::GetProperty(const wstring & aPropertyName)
+wstring MsInstaller::GetProperty(const wstring & aPropertyName)
 {
   return MsiPropertyGetterSetter::Get(mSession, aPropertyName);
 }
 
-void Msi::SetProperty(const std::wstring & aPropertyName, const std::wstring & aPropertyValue)
+void MsInstaller::SetProperty(const std::wstring & aPropertyName,
+                              const std::wstring & aPropertyValue)
 {
   MsiPropertyGetterSetter::Set(mSession, aPropertyName, aPropertyValue);
+}
+
+MsInstallerDatabase MsInstaller::OpenDatabase()
+{
+  return MsInstallerDatabase(mSession);
 }

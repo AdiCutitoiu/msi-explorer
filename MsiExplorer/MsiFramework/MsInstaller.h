@@ -1,17 +1,21 @@
 #pragma once
 
-class Msi
+#include "MsInstallerDatabase.h"
+
+class MsInstaller
 {
 public:
-  Msi(MSIHANDLE aSession);
+  MsInstaller(MSIHANDLE aSession);
 
-  Msi(const std::wstring & aMsiPath);
-
-  ~Msi();
+  MsInstaller(const std::wstring & aMsiPath);
 
   std::wstring GetProperty(const std::wstring & aPropertyName);
 
   void SetProperty(const std::wstring & aPropertyName, const std::wstring & aPropertyValue);
+
+  MsInstallerDatabase OpenDatabase();
+
+  ~MsInstaller();
 
 private:
   MSIHANDLE mSession;

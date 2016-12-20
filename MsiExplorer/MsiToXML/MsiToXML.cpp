@@ -4,6 +4,7 @@
 #include "stdafx.h"
 
 #include "../MsiFramework/MsInstaller.h"
+#include "../MsiFramework/MsInstallerDatabase.h"
 
 int main()
 {
@@ -49,12 +50,9 @@ int main()
 
   // Msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
-  Msi msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
+  MsInstaller msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
-  std::wcout << msi.GetProperty(L"MY_PROP");
-
-  msi.SetProperty(L"MY_PROP", L"aaa");
-  std::wcout << msi.GetProperty(L"MY_PROP");
+  MsInstallerDatabase db = msi.OpenDatabase();
 
   return 0;
 }
