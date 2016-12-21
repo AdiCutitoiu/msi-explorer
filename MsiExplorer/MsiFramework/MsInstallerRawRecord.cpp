@@ -4,11 +4,11 @@
 std::wstring MsInstallerRawRecord::Get() const
 {
   DWORD buffSize = 0;
-  ::MsiRecordGetString(mRawHandle, 1, L"", &buffSize);
+  ::MsiRecordGetString(mRawHandle, mFieldNumber, L"", &buffSize);
 
   ++buffSize;
   wstring name(buffSize, ' ');
-  ::MsiRecordGetString(mRawHandle, 1, &name[0], &buffSize);
+  ::MsiRecordGetString(mRawHandle, mFieldNumber, &name[0], &buffSize);
   name.pop_back();
 
   return name;

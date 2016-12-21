@@ -54,9 +54,15 @@ int main()
 
   MsInstallerDatabase db = msi.OpenDatabase();
 
-  auto table = db.GetTable(L"Dialog");
+  auto table = db.GetTable(L"TextStyle");
 
-  auto cols = table.GetName();
+  for (int i = 0; i < table.GetRawNumber(); ++i)
+  {
+    auto raw = table[i];
+    for (int fieldNr = 0; fieldNr < raw.GetFieldNumber(); ++fieldNr)
+      std::wcout << raw[fieldNr].Get() << ' ';
+    std::cout << std::endl;
+  }
 
   return 0;
 }

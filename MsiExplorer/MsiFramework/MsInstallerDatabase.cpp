@@ -76,9 +76,7 @@ MsInstallerTable MsInstallerDatabase::GetTable(const wstring & aTableName) const
     mTables.begin(), mTables.end(), aTableName,
     [](const auto & aTable, const auto & aTableName) { return aTable.GetName() < aTableName; });
 
-  auto tablenName = found->GetName();
-
-  cout << (tablenName == aTableName);
+  auto tableName = found->GetName();
 
   if (found == mTables.end() || found->GetName() != aTableName)
     assert(!"Table not found");

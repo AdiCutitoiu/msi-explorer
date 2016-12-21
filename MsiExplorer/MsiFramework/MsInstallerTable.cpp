@@ -47,6 +47,11 @@ MsInstallerRaw & MsInstallerTable::operator[](int aRawNumber)
   return mRaws[aRawNumber];
 }
 
+UINT MsInstallerTable::GetRawNumber()
+{
+  return mRaws.size();
+}
+
 MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDatabaseHandle)
   : mName(aTableName)
   , mDatabase(aDatabaseHandle)
@@ -61,21 +66,6 @@ MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDataba
   vector<wstring> columnNames;
   while (MsiViewFetch(view, &record) == ERROR_SUCCESS)
   {
-    UINT nrFields = MsiRecordGetFieldCount(record);
-
-    columnNames.reserve(nrFields);
-
-    for (UINT i = 1; i <= nrFields; ++i)
-    {
-      DWORD buffSize = 0;
-      ::MsiRecordGetString(record, i, L"", &buffSize);
-
-      ++buffSize;
-      wstring name(buffSize, ' ');
-      ::MsiRecordGetString(record, i, &name[0], &buffSize);
-      name.pop_back();
-
-      columnNames.push_back(name);
-    }
+    mRaws.push_back(MsInstallerRaw(record, GetColumnNames()));
   }
 }

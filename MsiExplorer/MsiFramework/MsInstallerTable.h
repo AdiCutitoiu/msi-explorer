@@ -13,6 +13,8 @@ public:
 
   MsInstallerRaw & operator[](int aRawNumber);
 
+  UINT GetRawNumber();
+
 private:
   MsInstallerTable(const std::wstring & aTableName, MSIHANDLE aDatabaseHandle);
 
