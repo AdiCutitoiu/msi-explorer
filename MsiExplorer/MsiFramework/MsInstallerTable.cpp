@@ -6,32 +6,76 @@ wstring MsInstallerTable::GetName() const
   return mName;
 }
 
-MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDatabaseHandle)
-  : mName(aTableName)
+std::vector<std::wstring> MsInstallerTable::GetColumnNames() const
 {
   MSIHANDLE view  = 0;
-  wstring   query = L"SELECT * FROM " + aTableName;
-  ::MsiDatabaseOpenView(aDatabaseHandle, query.c_str(), &view);
+  wstring   query = L"SELECT * FROM " + mName;
+  ::MsiDatabaseOpenView(mDatabase, query.c_str(), &view);
 
   MSIHANDLE record = 0;
   //::MsiViewExecute(view, record);
 
+  vector<wstring> columnNames;
   if (MsiViewGetColumnInfo(view, MSICOLINFO_NAMES, &record) == ERROR_SUCCESS)
   {
     UINT nrFields = MsiRecordGetFieldCount(record);
 
-    mColumnNames.reserve(nrFields);
+    columnNames.reserve(nrFields);
 
-    for (int i = 1; i <= nrFields; ++i)
+    for (UINT i = 1; i <= nrFields; ++i)
     {
       DWORD buffSize = 0;
-      MsiRecordGetString(record, i, L"", &buffSize);
+      ::MsiRecordGetString(record, i, L"", &buffSize);
 
       ++buffSize;
       wstring name(buffSize, ' ');
-      MsiRecordGetString(record, i, &name[0], &buffSize);
+      ::MsiRecordGetString(record, i, &name[0], &buffSize);
+      name.pop_back();
 
-      mColumnNames.push_back(name);
+      columnNames.push_back(name);
+    }
+  }
+
+  return columnNames;
+}
+
+MsInstallerRaw & MsInstallerTable::operator[](int aRawNumber)
+{
+  if (aRawNumber >= mRaws.size())
+    assert(!"Invalid row");
+
+  return mRaws[aRawNumber];
+}
+
+MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDatabaseHandle)
+  : mName(aTableName)
+  , mDatabase(aDatabaseHandle)
+{
+  MSIHANDLE view  = 0;
+  wstring   query = L"SELECT * FROM " + mName;
+  ::MsiDatabaseOpenView(mDatabase, query.c_str(), &view);
+
+  MSIHANDLE record = 0;
+  ::MsiViewExecute(view, record);
+
+  vector<wstring> columnNames;
+  while (MsiViewFetch(view, &record) == ERROR_SUCCESS)
+  {
+    UINT nrFields = MsiRecordGetFieldCount(record);
+
+    columnNames.reserve(nrFields);
+
+    for (UINT i = 1; i <= nrFields; ++i)
+    {
+      DWORD buffSize = 0;
+      ::MsiRecordGetString(record, i, L"", &buffSize);
+
+      ++buffSize;
+      wstring name(buffSize, ' ');
+      ::MsiRecordGetString(record, i, &name[0], &buffSize);
+      name.pop_back();
+
+      columnNames.push_back(name);
     }
   }
 }

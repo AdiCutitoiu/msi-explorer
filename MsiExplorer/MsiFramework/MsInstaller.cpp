@@ -3,21 +3,19 @@
 #include "MsInstallerDatabase.h"
 #include "MsiPropertyGetterSetter.h"
 
+#define RUNNING_MSI_PATH_PROP TEXT("OriginalDatabase")
+
 MsInstaller::MsInstaller(MSIHANDLE aSession)
   : mSession(aSession)
   , mOpenByHandle(true)
+  , mMsiPath(GetProperty(RUNNING_MSI_PATH_PROP))
 {
 }
 
 MsInstaller::MsInstaller(const wstring & aMsiPath)
+  : mSession(0)
+  , mMsiPath(aMsiPath)
 {
-  ::MsiOpenPackage(aMsiPath.c_str(), &mSession);
-}
-
-MsInstaller::~MsInstaller()
-{
-  if (!mOpenByHandle)
-    ::MsiCloseHandle(mSession);
 }
 
 wstring MsInstaller::GetProperty(const wstring & aPropertyName)
@@ -33,5 +31,5 @@ void MsInstaller::SetProperty(const std::wstring & aPropertyName,
 
 MsInstallerDatabase MsInstaller::OpenDatabase()
 {
-  return MsInstallerDatabase(mSession);
+  return mOpenByHandle ? MsInstallerDatabase(mSession) : MsInstallerDatabase(mMsiPath);
 }

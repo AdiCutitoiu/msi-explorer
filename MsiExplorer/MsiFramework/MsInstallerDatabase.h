@@ -15,6 +15,7 @@ public:
 
 private:
   MsInstallerDatabase(MSIHANDLE aMsiHandle);
+  MsInstallerDatabase(const std::wstring & aMsiPath);
 
   MSIHANDLE                     mDatabaseHandle;
   std::vector<MsInstallerTable> mTables;

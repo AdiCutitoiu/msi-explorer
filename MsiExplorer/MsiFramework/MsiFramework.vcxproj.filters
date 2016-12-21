@@ -24,9 +24,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Record.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MsiPropertyGetterSetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -39,12 +36,15 @@
     <ClInclude Include="MsInstallerTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsInstallerRaw.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsInstallerRawRecord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Record.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsiPropertyGetterSetter.cpp">
@@ -57,6 +57,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerTable.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsInstallerRaw.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsInstallerRawRecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,7 @@
 #pragma once
 
+#include "MsInstallerRaw.h"
+
 class MsInstallerTable
 {
 public:
@@ -7,9 +9,14 @@ public:
 
   std::wstring GetName() const;
 
+  std::vector<std::wstring> GetColumnNames() const;
+
+  MsInstallerRaw & operator[](int aRawNumber);
+
 private:
   MsInstallerTable(const std::wstring & aTableName, MSIHANDLE aDatabaseHandle);
 
-  std::vector<std::wstring> mColumnNames;
-  std::wstring              mName;
+  MSIHANDLE                   mDatabase;
+  std::wstring                mName;
+  std::vector<MsInstallerRaw> mRaws;
 };

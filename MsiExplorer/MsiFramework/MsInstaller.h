@@ -15,9 +15,8 @@ public:
 
   MsInstallerDatabase OpenDatabase();
 
-  ~MsInstaller();
-
 private:
-  MSIHANDLE mSession;
-  bool      mOpenByHandle = false;
+  MSIHANDLE    mSession;
+  bool         mOpenByHandle = false;
+  std::wstring mMsiPath;
 };

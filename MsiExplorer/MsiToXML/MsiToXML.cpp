@@ -54,5 +54,9 @@ int main()
 
   MsInstallerDatabase db = msi.OpenDatabase();
 
+  auto table = db.GetTable(L"Dialog");
+
+  auto cols = table.GetName();
+
   return 0;
 }
