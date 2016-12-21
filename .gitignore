@@ -58,3 +58,5 @@ MsiExplorer/CustAct/.clang-format
 MsiExplorer/CustAct/Release/CustAct.Build.CppClean.log
 MsiExplorer/MsiExplorer.VC.VC.opendb
 *.db
+MsiExplorer/MsiExplorer.VC.db
+*.suo

@@ -15,6 +15,7 @@
 #include <MsiDefs.h>
 #include <MsiQuery.h>
 #include <algorithm>
+#include <assert.h>
 #include <iostream>
 #include <string>
 #include <vector>

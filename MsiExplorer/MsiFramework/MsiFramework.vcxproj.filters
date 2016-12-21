@@ -36,7 +36,7 @@
     <ClInclude Include="MsInstallerDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsiTable.h">
+    <ClInclude Include="MsInstallerTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -56,7 +56,7 @@
     <ClCompile Include="MsInstallerDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsiTable.cpp">
+    <ClCompile Include="MsInstallerTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

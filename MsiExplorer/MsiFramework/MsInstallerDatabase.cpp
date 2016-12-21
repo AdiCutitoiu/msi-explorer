@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MsInstallerDatabase.h"
+#include "MsInstallerTable.h"
 
 MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
 {
@@ -20,12 +21,35 @@ MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
     wstring name(buffSize, ' ');
     MsiRecordGetString(record, 1, &name[0], &buffSize);
 
-    mTableNames.push_back(name);
+    if (name[0] != L'#')
+      mTables.emplace_back(MsInstallerTable(name, mDatabaseHandle));
   }
 
-  sort(mTableNames.begin(), mTableNames.end());
+  sort(mTables.begin(), mTables.end(), [](const auto & aFirst, const auto & aSecond) {
+    return aFirst.GetName() < aSecond.GetName();
+  });
+}
 
-  int x = 0;
+std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
+{
+  vector<wstring> names(mTables.size());
+
+  transform(mTables.begin(), mTables.end(), names.begin(),
+            [](const auto & aTable) { return aTable.GetName(); });
+
+  return names;
+}
+
+MsInstallerTable MsInstallerDatabase::GetTable(const wstring & aTableName) const
+{
+  auto found = lower_bound(
+    mTables.begin(), mTables.end(), aTableName,
+    [](const auto & aTable, const auto & aTableName) { return aTable.GetName() < aTableName; });
+
+  if (found == mTables.end() || found->GetName() != aTableName)
+    assert(!"Table not found");
+
+  return *found;
 }
 
 MsInstallerDatabase::~MsInstallerDatabase()
