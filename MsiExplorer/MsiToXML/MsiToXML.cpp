@@ -56,22 +56,9 @@ int main()
 
   auto table = db.GetTable(L"RadioButton");
 
-  for (auto & row : table)
+  for (auto & colName : table.GetColumnNames())
   {
-    for (auto & record : row)
-      std::wcout << record.Get() << ' ';
-    std::wcout << '\n';
-  }
-
-  table.GetColumnNames();
-
-  MsInstallerDatabase db2 = msi.OpenDatabase();
-
-  for (auto & row : db2.GetTable(L"RadioButton"))
-  {
-    for (auto & record : row)
-      std::wcout << record.Get() << ' ';
-    std::wcout << '\n';
+    std::wcout << colName << '\n';
   }
 
   return 0;

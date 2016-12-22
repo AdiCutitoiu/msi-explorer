@@ -9,11 +9,7 @@ wstring MsInstallerTable::GetName() const
 
 std::vector<std::wstring> MsInstallerTable::GetColumnNames() const
 {
-  wstring query = L"SELECT * FROM " + mName;
-
-  Utility::MsInstallerView view(mDatabase, query.c_str());
-
-  return view.GetColumnNames();
+  return mColumnNames;
 }
 
 MsInstallerRow & MsInstallerTable::operator[](int aRowNumber)
@@ -54,5 +50,5 @@ MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDataba
     rawReceived = view.Fetch();
   }
 
-  int x = 2;
+  mColumnNames = view.GetColumnNames();
 }

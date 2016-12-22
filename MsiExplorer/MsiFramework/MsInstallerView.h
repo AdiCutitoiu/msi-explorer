@@ -15,7 +15,8 @@ public:
   ~MsInstallerView();
 
 private:
-  MSIHANDLE mView;
-  bool      mWasExecuted;
+  MSIHANDLE      mView;
+  bool           mFinished;
+  MsInstallerRow mCurrentRow;
 };
 }

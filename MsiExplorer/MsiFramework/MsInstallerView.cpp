@@ -4,31 +4,35 @@
 namespace Utility
 {
 MsInstallerView::MsInstallerView(MSIHANDLE aDatabase, const std::wstring & aQuery)
-  : mWasExecuted(false)
 {
   mView  = 0;
   auto x = ::MsiDatabaseOpenView(aDatabase, aQuery.c_str(), &mView);
+
+  MSIHANDLE rowHandle = 0;
+  ::MsiViewExecute(mView, rowHandle);
+
+  if (::MsiViewFetch(mView, &rowHandle) == ERROR_SUCCESS)
+  {
+    mFinished   = false;
+    mCurrentRow = MsInstallerRow(rowHandle);
+  }
 }
 
 pair<bool, MsInstallerRow> MsInstallerView::Fetch()
 {
+  auto result = make_pair(!mFinished, mCurrentRow);
+
   MSIHANDLE record = 0;
-  if (!mWasExecuted)
-  {
-    ::MsiViewExecute(mView, record);
-    mWasExecuted = true;
-  }
+  mFinished        = !(::MsiViewFetch(mView, &record) == ERROR_SUCCESS);
 
-  UINT state = ::MsiViewFetch(mView, &record);
+  mCurrentRow = mFinished ? MsInstallerRow() : MsInstallerRow(record);
 
-  return state == ERROR_SUCCESS ? make_pair(true, MsInstallerRow(record))
-                                : make_pair(false, MsInstallerRow());
+  return result;
 }
+
 vector<wstring> MsInstallerView::GetColumnNames()
 {
   MSIHANDLE rowHandle = 0;
-  ::MsiViewExecute(mView, rowHandle);
-  ::MsiViewFetch(mView, &rowHandle);
   ::MsiViewGetColumnInfo(mView, MSICOLINFO_NAMES, &rowHandle);
 
   MsInstallerRow row(rowHandle);
@@ -39,8 +43,9 @@ vector<wstring> MsInstallerView::GetColumnNames()
 
   return result;
 }
+
 MsInstallerView::~MsInstallerView()
 {
-  MsiCloseHandle(mView);
+  // MsiCloseHandle(mView);
 }
 }

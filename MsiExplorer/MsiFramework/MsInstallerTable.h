@@ -25,4 +25,5 @@ private:
   MSIHANDLE                   mDatabase;
   std::wstring                mName;
   std::vector<MsInstallerRow> mRows;
+  std::vector<std::wstring>   mColumnNames;
 };
