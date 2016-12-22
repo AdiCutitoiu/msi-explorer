@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MsInstallerTable.h"
+#include "MsInstallerView.h"
 
 wstring MsInstallerTable::GetName() const
 {
@@ -8,64 +9,50 @@ wstring MsInstallerTable::GetName() const
 
 std::vector<std::wstring> MsInstallerTable::GetColumnNames() const
 {
-  MSIHANDLE view  = 0;
-  wstring   query = L"SELECT * FROM " + mName;
-  ::MsiDatabaseOpenView(mDatabase, query.c_str(), &view);
+  wstring query = L"SELECT * FROM " + mName;
 
-  MSIHANDLE record = 0;
-  //::MsiViewExecute(view, record);
+  Utility::MsInstallerView view(mDatabase, query.c_str());
 
-  vector<wstring> columnNames;
-  if (MsiViewGetColumnInfo(view, MSICOLINFO_NAMES, &record) == ERROR_SUCCESS)
-  {
-    UINT nrFields = MsiRecordGetFieldCount(record);
-
-    columnNames.reserve(nrFields);
-
-    for (UINT i = 1; i <= nrFields; ++i)
-    {
-      DWORD buffSize = 0;
-      ::MsiRecordGetString(record, i, L"", &buffSize);
-
-      ++buffSize;
-      wstring name(buffSize, ' ');
-      ::MsiRecordGetString(record, i, &name[0], &buffSize);
-      name.pop_back();
-
-      columnNames.push_back(name);
-    }
-  }
-
-  return columnNames;
+  return view.GetColumnNames();
 }
 
-MsInstallerRaw & MsInstallerTable::operator[](int aRawNumber)
+MsInstallerRow & MsInstallerTable::operator[](int aRowNumber)
 {
-  if (aRawNumber >= mRaws.size())
+  if (UINT(aRowNumber) >= mRows.size())
     assert(!"Invalid row");
 
-  return mRaws[aRawNumber];
+  return mRows[aRowNumber];
 }
 
-UINT MsInstallerTable::GetRawNumber()
+UINT MsInstallerTable::GetRowNumber()
 {
-  return mRaws.size();
+  return mRows.size();
+}
+
+std::vector<MsInstallerRow>::iterator MsInstallerTable::begin()
+{
+  return mRows.begin();
+}
+
+std::vector<MsInstallerRow>::iterator MsInstallerTable::end()
+{
+  return mRows.end();
 }
 
 MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDatabaseHandle)
   : mName(aTableName)
   , mDatabase(aDatabaseHandle)
 {
-  MSIHANDLE view  = 0;
-  wstring   query = L"SELECT * FROM " + mName;
-  ::MsiDatabaseOpenView(mDatabase, query.c_str(), &view);
+  wstring query = L"SELECT * FROM " + mName;
 
-  MSIHANDLE record = 0;
-  ::MsiViewExecute(view, record);
+  Utility::MsInstallerView view(mDatabase, query.c_str());
 
-  vector<wstring> columnNames;
-  while (MsiViewFetch(view, &record) == ERROR_SUCCESS)
+  auto rawReceived = view.Fetch();
+  while (rawReceived.first)
   {
-    mRaws.push_back(MsInstallerRaw(record, GetColumnNames()));
+    mRows.push_back(rawReceived.second);
+    rawReceived = view.Fetch();
   }
+
+  int x = 2;
 }

@@ -54,14 +54,24 @@ int main()
 
   MsInstallerDatabase db = msi.OpenDatabase();
 
-  auto table = db.GetTable(L"TextStyle");
+  auto table = db.GetTable(L"RadioButton");
 
-  for (int i = 0; i < table.GetRawNumber(); ++i)
+  for (auto & row : table)
   {
-    auto raw = table[i];
-    for (int fieldNr = 0; fieldNr < raw.GetFieldNumber(); ++fieldNr)
-      std::wcout << raw[fieldNr].Get() << ' ';
-    std::cout << std::endl;
+    for (auto & record : row)
+      std::wcout << record.Get() << ' ';
+    std::wcout << '\n';
+  }
+
+  table.GetColumnNames();
+
+  MsInstallerDatabase db2 = msi.OpenDatabase();
+
+  for (auto & row : db2.GetTable(L"RadioButton"))
+  {
+    for (auto & record : row)
+      std::wcout << record.Get() << ' ';
+    std::wcout << '\n';
   }
 
   return 0;

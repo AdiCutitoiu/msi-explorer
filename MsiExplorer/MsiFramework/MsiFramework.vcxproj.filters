@@ -36,10 +36,13 @@
     <ClInclude Include="MsInstallerTable.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstallerRaw.h">
+    <ClInclude Include="MsInstallerView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstallerRawRecord.h">
+    <ClInclude Include="MsInstallerRowRecord.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsInstallerRow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,10 +62,13 @@
     <ClCompile Include="MsInstallerTable.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsInstallerRaw.cpp">
+    <ClCompile Include="MsInstallerView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsInstallerRawRecord.cpp">
+    <ClCompile Include="MsInstallerRowRecord.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsInstallerRow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

@@ -15,11 +15,11 @@ MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
   while (::MsiViewFetch(view, &record) == ERROR_SUCCESS)
   {
     DWORD buffSize = 0;
-    MsiRecordGetString(record, 1, L"", &buffSize);
+    ::MsiRecordGetString(record, 1, L"", &buffSize);
 
     ++buffSize;
     wstring name(buffSize, ' ');
-    MsiRecordGetString(record, 1, &name[0], &buffSize);
+    ::MsiRecordGetString(record, 1, &name[0], &buffSize);
     name.pop_back();
 
     if (name[0] != L'#')
@@ -44,11 +44,11 @@ MsInstallerDatabase::MsInstallerDatabase(const std::wstring & aMsiPath)
   while (::MsiViewFetch(view, &record) == ERROR_SUCCESS)
   {
     DWORD buffSize = 0;
-    MsiRecordGetString(record, 1, L"", &buffSize);
+    ::MsiRecordGetString(record, 1, L"", &buffSize);
 
     ++buffSize;
     wstring name(buffSize, ' ');
-    MsiRecordGetString(record, 1, &name[0], &buffSize);
+    ::MsiRecordGetString(record, 1, &name[0], &buffSize);
     name.pop_back();
 
     if (name[0] != L'#')

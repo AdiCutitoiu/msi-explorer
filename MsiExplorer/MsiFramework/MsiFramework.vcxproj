@@ -77,20 +77,22 @@
   <ItemGroup>
     <ClInclude Include="MsInstaller.h" />
     <ClInclude Include="MsInstallerDatabase.h" />
-    <ClInclude Include="MsInstallerRawRecord.h" />
+    <ClInclude Include="MsInstallerRowRecord.h" />
     <ClInclude Include="MsiPropertyGetterSetter.h" />
     <ClInclude Include="MsInstallerTable.h" />
-    <ClInclude Include="MsInstallerRaw.h" />
+    <ClInclude Include="MsInstallerRow.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="MsInstallerView.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MsInstaller.cpp" />
     <ClCompile Include="MsInstallerDatabase.cpp" />
-    <ClCompile Include="MsInstallerRawRecord.cpp" />
+    <ClCompile Include="MsInstallerRowRecord.cpp" />
+    <ClCompile Include="MsInstallerView.cpp" />
     <ClCompile Include="MsiPropertyGetterSetter.cpp" />
     <ClCompile Include="MsInstallerTable.cpp" />
-    <ClCompile Include="MsInstallerRaw.cpp" />
+    <ClCompile Include="MsInstallerRow.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
