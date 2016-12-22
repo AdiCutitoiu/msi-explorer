@@ -3,7 +3,6 @@
 
 #include "stdafx.h"
 
-#include "../MsiFramework/MsInstaller.h"
 #include "../MsiFramework/MsInstallerDatabase.h"
 
 int main()
@@ -50,9 +49,7 @@ int main()
 
   // Msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
-  MsInstaller msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
-
-  MsInstallerDatabase db = msi.OpenDatabase();
+  MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
   auto table = db.GetTable(L"RadioButton");
 

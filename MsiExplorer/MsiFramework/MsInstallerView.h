@@ -10,6 +10,8 @@ public:
 
   pair<bool, MsInstallerRow> Fetch();
 
+  vector<MsInstallerRow> FetchAll();
+
   std::vector<std::wstring> GetColumnNames();
 
   ~MsInstallerView();

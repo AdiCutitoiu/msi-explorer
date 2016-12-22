@@ -30,6 +30,20 @@ pair<bool, MsInstallerRow> MsInstallerView::Fetch()
   return result;
 }
 
+vector<MsInstallerRow> MsInstallerView::FetchAll()
+{
+  vector<MsInstallerRow> allRows;
+
+  auto fetched = Fetch();
+  while (fetched.first)
+  {
+    allRows.push_back(fetched.second);
+    fetched = Fetch();
+  }
+
+  return allRows;
+}
+
 vector<wstring> MsInstallerView::GetColumnNames()
 {
   MSIHANDLE rowHandle = 0;
@@ -46,6 +60,6 @@ vector<wstring> MsInstallerView::GetColumnNames()
 
 MsInstallerView::~MsInstallerView()
 {
-  // MsiCloseHandle(mView);
+  MsiCloseHandle(mView);
 }
 }

@@ -27,9 +27,6 @@
     <ClInclude Include="MsiPropertyGetterSetter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstaller.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MsInstallerDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -51,9 +48,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsiPropertyGetterSetter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MsInstaller.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerDatabase.cpp">

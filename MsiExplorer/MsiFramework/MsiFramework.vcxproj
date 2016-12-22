@@ -75,7 +75,6 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MsInstaller.h" />
     <ClInclude Include="MsInstallerDatabase.h" />
     <ClInclude Include="MsInstallerRowRecord.h" />
     <ClInclude Include="MsiPropertyGetterSetter.h" />
@@ -86,7 +85,6 @@
     <ClInclude Include="MsInstallerView.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="MsInstaller.cpp" />
     <ClCompile Include="MsInstallerDatabase.cpp" />
     <ClCompile Include="MsInstallerRowRecord.cpp" />
     <ClCompile Include="MsInstallerView.cpp" />

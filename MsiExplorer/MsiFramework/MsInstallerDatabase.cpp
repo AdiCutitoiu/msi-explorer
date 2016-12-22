@@ -1,58 +1,31 @@
 #include "stdafx.h"
 #include "MsInstallerDatabase.h"
 #include "MsInstallerTable.h"
+#include "MsInstallerView.h"
 
 MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
 {
   mDatabaseHandle = ::MsiGetActiveDatabase(aMsiHandle);
 
-  MSIHANDLE view = 0;
-  ::MsiDatabaseOpenView(mDatabaseHandle, TEXT("SELECT Name FROM _Tables"), &view);
-
-  MSIHANDLE record = 0;
-  ::MsiViewExecute(view, record);
-
-  while (::MsiViewFetch(view, &record) == ERROR_SUCCESS)
-  {
-    DWORD buffSize = 0;
-    ::MsiRecordGetString(record, 1, L"", &buffSize);
-
-    ++buffSize;
-    wstring name(buffSize, ' ');
-    ::MsiRecordGetString(record, 1, &name[0], &buffSize);
-    name.pop_back();
-
-    if (name[0] != L'#')
-      mTables.emplace_back(MsInstallerTable(name, mDatabaseHandle));
-  }
-
-  sort(mTables.begin(), mTables.end(), [](const auto & aFirst, const auto & aSecond) {
-    return aFirst.GetName() < aSecond.GetName();
-  });
+  ReadTables();
 }
 
 MsInstallerDatabase::MsInstallerDatabase(const std::wstring & aMsiPath)
 {
   ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_READONLY, &mDatabaseHandle);
 
-  MSIHANDLE view = 0;
-  ::MsiDatabaseOpenView(mDatabaseHandle, TEXT("SELECT Name FROM _Tables"), &view);
+  ReadTables();
+}
 
-  MSIHANDLE record = 0;
-  ::MsiViewExecute(view, record);
+void MsInstallerDatabase::ReadTables()
+{
+  auto view = Utility::MsInstallerView(mDatabaseHandle, TEXT("SELECT Name FROM _Tables"));
 
-  while (::MsiViewFetch(view, &record) == ERROR_SUCCESS)
+  for (auto & fetched : view.FetchAll())
   {
-    DWORD buffSize = 0;
-    ::MsiRecordGetString(record, 1, L"", &buffSize);
+    wstring tableName = fetched[0].Get();
 
-    ++buffSize;
-    wstring name(buffSize, ' ');
-    ::MsiRecordGetString(record, 1, &name[0], &buffSize);
-    name.pop_back();
-
-    if (name[0] != L'#')
-      mTables.emplace_back(MsInstallerTable(name, mDatabaseHandle));
+    mTables.push_back(MsInstallerTable(tableName, mDatabaseHandle));
   }
 
   sort(mTables.begin(), mTables.end(), [](const auto & aFirst, const auto & aSecond) {
