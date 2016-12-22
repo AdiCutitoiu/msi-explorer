@@ -12,11 +12,15 @@ public:
 
   vector<MsInstallerRow> FetchAll();
 
-  std::vector<std::wstring> GetColumnNames();
+  std::vector<std::wstring> GetColumnNames() const;
+
+  std::vector<std::wstring> GetColumnTypes() const;
 
   ~MsInstallerView();
 
 private:
+  std::vector<std::wstring> GetColumnNamesTypes(bool aGetNames) const;
+
   MSIHANDLE      mView;
   bool           mFinished;
   MsInstallerRow mCurrentRow;

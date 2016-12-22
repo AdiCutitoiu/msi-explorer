@@ -11,6 +11,8 @@ public:
 
   std::vector<std::wstring> GetColumnNames() const;
 
+  std::vector<std::wstring> GetColumnTypes() const;
+
   MsInstallerRow & operator[](int aRowNumber);
 
   UINT GetRowNumber();
@@ -26,4 +28,5 @@ private:
   std::wstring                mName;
   std::vector<MsInstallerRow> mRows;
   std::vector<std::wstring>   mColumnNames;
+  std::vector<std::wstring>   mColumnTypes;
 };

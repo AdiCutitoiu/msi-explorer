@@ -44,10 +44,25 @@ vector<MsInstallerRow> MsInstallerView::FetchAll()
   return allRows;
 }
 
-vector<wstring> MsInstallerView::GetColumnNames()
+vector<wstring> MsInstallerView::GetColumnNames() const
 {
-  MSIHANDLE rowHandle = 0;
-  ::MsiViewGetColumnInfo(mView, MSICOLINFO_NAMES, &rowHandle);
+  return GetColumnNamesTypes(true);
+}
+
+std::vector<std::wstring> MsInstallerView::GetColumnTypes() const
+{
+  return GetColumnNamesTypes(false);
+}
+
+MsInstallerView::~MsInstallerView()
+{
+  MsiCloseHandle(mView);
+}
+std::vector<std::wstring> MsInstallerView::GetColumnNamesTypes(bool aGetNames) const
+{
+  MSIHANDLE rowHandle         = 0;
+  auto      informationNeeded = aGetNames ? MSICOLINFO_NAMES : MSICOLINFO_TYPES;
+  ::MsiViewGetColumnInfo(mView, informationNeeded, &rowHandle);
 
   MsInstallerRow row(rowHandle);
 
@@ -56,10 +71,5 @@ vector<wstring> MsInstallerView::GetColumnNames()
             [](const auto & aRecord) { return aRecord.Get(); });
 
   return result;
-}
-
-MsInstallerView::~MsInstallerView()
-{
-  MsiCloseHandle(mView);
 }
 }

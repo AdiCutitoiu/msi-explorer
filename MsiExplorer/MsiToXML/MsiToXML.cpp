@@ -45,15 +45,11 @@ int main()
   ::MsiCloseHandle(hand);
   */
 
-  // MsiDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
-
-  // Msi(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
-
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
   auto table = db.GetTable(L"RadioButton");
 
-  for (auto & colName : table.GetColumnNames())
+  for (auto & colName : table.GetColumnTypes())
   {
     std::wcout << colName << '\n';
   }

@@ -19,6 +19,5 @@ void MsiPropertyGetterSetter::Set(MSIHANDLE       aSession,
                                   const wstring & aPropertyName,
                                   const wstring & aPropertyValue)
 {
-  auto st = MsiSetProperty(aSession, aPropertyValue.c_str(), aPropertyValue.c_str());
-  ERROR_SUCCESS;
+  MsiSetProperty(aSession, aPropertyValue.c_str(), aPropertyValue.c_str());
 }

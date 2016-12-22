@@ -12,6 +12,11 @@ std::vector<std::wstring> MsInstallerTable::GetColumnNames() const
   return mColumnNames;
 }
 
+std::vector<std::wstring> MsInstallerTable::GetColumnTypes() const
+{
+  return mColumnTypes;
+}
+
 MsInstallerRow & MsInstallerTable::operator[](int aRowNumber)
 {
   if (UINT(aRowNumber) >= mRows.size())
@@ -43,12 +48,7 @@ MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDataba
 
   Utility::MsInstallerView view(mDatabase, query.c_str());
 
-  auto rawReceived = view.Fetch();
-  while (rawReceived.first)
-  {
-    mRows.push_back(rawReceived.second);
-    rawReceived = view.Fetch();
-  }
-
+  mRows        = view.FetchAll();
   mColumnNames = view.GetColumnNames();
+  mColumnTypes = view.GetColumnTypes();
 }

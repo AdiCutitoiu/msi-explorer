@@ -5,8 +5,6 @@
 class MsInstallerRow
 {
 public:
-  friend class MsInstallerTable;
-
   MsInstallerRow();
   MsInstallerRow(MSIHANDLE aRowHandle);
 
