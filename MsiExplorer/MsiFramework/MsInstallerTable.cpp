@@ -22,14 +22,6 @@ std::vector<std::wstring> MsInstallerTable::GetPrimaryKeys() const
   return mPrimaryKeys;
 }
 
-MsInstallerRow & MsInstallerTable::operator[](int aRowNumber)
-{
-  if (UINT(aRowNumber) >= mRows.size())
-    assert(!"Invalid row");
-
-  return mRows[aRowNumber];
-}
-
 UINT MsInstallerTable::GetRowNumber()
 {
   return mRows.size();
