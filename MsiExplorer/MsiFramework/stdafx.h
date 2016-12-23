@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <iostream>
+#include <iterator>
 #include <string>
 #include <vector>
 

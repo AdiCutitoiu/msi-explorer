@@ -17,6 +17,11 @@ std::vector<std::wstring> MsInstallerTable::GetColumnTypes() const
   return mColumnTypes;
 }
 
+std::vector<std::wstring> MsInstallerTable::GetPrimaryKeys() const
+{
+  return mPrimaryKeys;
+}
+
 MsInstallerRow & MsInstallerTable::operator[](int aRowNumber)
 {
   if (UINT(aRowNumber) >= mRows.size())
@@ -51,4 +56,11 @@ MsInstallerTable::MsInstallerTable(const wstring & aTableName, MSIHANDLE aDataba
   mRows        = view.FetchAll();
   mColumnNames = view.GetColumnNames();
   mColumnTypes = view.GetColumnTypes();
+
+  MSIHANDLE rowHandle = 0;
+  ::MsiDatabaseGetPrimaryKeys(mDatabase, mName.c_str(), &rowHandle);
+  auto row = MsInstallerRow(rowHandle);
+
+  transform(row.begin(), row.end(), back_inserter(mPrimaryKeys),
+            [](const auto & aRecord) { return aRecord.Get(); });
 }

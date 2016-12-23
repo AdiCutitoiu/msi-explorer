@@ -58,6 +58,7 @@ MsInstallerView::~MsInstallerView()
 {
   MsiCloseHandle(mView);
 }
+
 std::vector<std::wstring> MsInstallerView::GetColumnNamesTypes(bool aGetNames) const
 {
   MSIHANDLE rowHandle         = 0;

@@ -13,6 +13,8 @@ public:
 
   std::vector<std::wstring> GetColumnTypes() const;
 
+  std::vector<std::wstring> GetPrimaryKeys() const;
+
   MsInstallerRow & operator[](int aRowNumber);
 
   UINT GetRowNumber();
@@ -29,4 +31,5 @@ private:
   std::vector<MsInstallerRow> mRows;
   std::vector<std::wstring>   mColumnNames;
   std::vector<std::wstring>   mColumnTypes;
+  std::vector<std::wstring>   mPrimaryKeys;
 };

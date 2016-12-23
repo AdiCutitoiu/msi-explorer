@@ -47,11 +47,20 @@ int main()
 
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
-  auto table = db.GetTable(L"RadioButton");
+  auto table = db.GetTable(L"Condition");
 
-  for (auto & colName : table.GetColumnTypes())
+  // auto colTypes = table.GetColumnTypes();
+  // auto colNames = table.GetColumnNames();
+  //
+  // std::transform(colNames.begin(), colNames.end(), colTypes.begin(),
+  //               std::ostream_iterator<std::wstring, wchar_t>(std::wcout, L"\n"),
+  //               [](const std::wstring & colName, const std::wstring & colType) {
+  //                 return colName + L' ' + colType;
+  //               });
+
+  for (const auto & pk : table.GetColumnTypes())
   {
-    std::wcout << colName << '\n';
+    std::wcout << pk << std::endl;
   }
 
   return 0;
