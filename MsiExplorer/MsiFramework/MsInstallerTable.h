@@ -15,8 +15,6 @@ public:
 
   std::vector<std::wstring> GetPrimaryKeys() const;
 
-  MsInstallerRow & operator[](int aRowNumber);
-
   UINT GetRowNumber();
 
   std::vector<MsInstallerRow>::iterator begin();
