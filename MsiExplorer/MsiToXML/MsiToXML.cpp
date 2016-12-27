@@ -49,5 +49,7 @@ int main()
 
   auto schema = db.GetTableSchema(L"Dialog");
 
+  auto result = schema.GetPrimaryKeyColumns();
+
   return 0;
 }

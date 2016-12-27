@@ -49,7 +49,7 @@ std::wstring MsInstallerTableSchema::GetColumnType(const std::wstring & aColumnN
   auto found = find_if(mColumns.begin(), mColumns.end(),
                        [&](const auto & aColumn) { return get<0>(aColumn) == aColumnName; });
 
-  return get<0>(*found);
+  return get<1>(*found);
 }
 
 std::vector<wstring> MsInstallerTableSchema::GetColumnTypes() const
