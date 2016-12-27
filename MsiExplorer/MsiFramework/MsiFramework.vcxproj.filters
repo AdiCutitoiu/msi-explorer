@@ -42,6 +42,12 @@
     <ClInclude Include="MsInstallerRow.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsInstallerTableSchema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordFieldStringGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -63,6 +69,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerRow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsInstallerTableSchema.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordFieldStringGetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

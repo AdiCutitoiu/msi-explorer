@@ -14,7 +14,7 @@ MsInstallerDatabase::MsInstallerDatabase(const std::wstring & aMsiPath)
 {
   ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_READONLY, &mDatabaseHandle);
 
-  ReadTables();
+  // ReadTables();
 }
 
 void MsInstallerDatabase::ReadTables()
@@ -55,6 +55,11 @@ MsInstallerTable MsInstallerDatabase::GetTable(const wstring & aTableName) const
     assert(!"Table not found");
 
   return *found;
+}
+
+MsInstallerTableSchema MsInstallerDatabase::GetTableSchema(const std::wstring & aTableName) const
+{
+  return MsInstallerTableSchema(mDatabaseHandle, aTableName);
 }
 
 MsInstallerDatabase::~MsInstallerDatabase()

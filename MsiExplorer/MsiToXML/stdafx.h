@@ -14,6 +14,7 @@
 #include <iostream>
 #include <iterator>
 #include <string>
+#include <tuple>
 #include <vector>
 #include <windows.h>
 

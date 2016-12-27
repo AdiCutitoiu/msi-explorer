@@ -18,7 +18,9 @@
 #include <assert.h>
 #include <iostream>
 #include <iterator>
+#include <numeric>
 #include <string>
+#include <tuple>
 #include <vector>
 
 using namespace std;
