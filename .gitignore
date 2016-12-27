@@ -59,9 +59,5 @@ MsiExplorer/CustAct/Release/CustAct.Build.CppClean.log
 MsiExplorer/MsiExplorer.VC.VC.opendb
 *.db
 MsiExplorer/MsiExplorer.VC.db
+MsiExplorer/.vs
 *.suo
-MsiExplorer/.vs/MsiExplorer/v14/.suo
-MsiExplorer/.vs/MsiExplorer/v14/.suo
-MsiExplorer/.vs/MsiExplorer/v14/.suo
-*.suo
-MsiExplorer/.vs/MsiExplorer/v14/.suo
