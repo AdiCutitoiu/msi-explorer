@@ -1,28 +1,33 @@
 #pragma once
-#include "MsInstallerRow.h"
 
-namespace Utility
-{
+#include "MsInstallerCell.h"
+#include "MsInstallerRecord.h"
+#include "MsInstallerTableSchema.h"
+
 class MsInstallerView
 {
 public:
-  MsInstallerView(MSIHANDLE aDatabase, const std::wstring & aQuery);
+  MsInstallerView(MSIHANDLE                         aDatabaseHandle,
+                  const std::wstring &              aTableName,
+                  const std::vector<std::wstring> & aTableColumns);
 
-  pair<bool, MsInstallerRow> Fetch();
+  void Execute();
 
-  vector<MsInstallerRow> FetchAll();
+  bool UpdateCurrent(const MsInstallerRecord & aRecord);
 
-  std::vector<std::wstring> GetColumnNames() const;
-
-  std::vector<std::wstring> GetColumnTypes() const;
-
-  ~MsInstallerView();
+  pair<bool, MsInstallerRecord> GetNext();
 
 private:
-  std::vector<std::wstring> GetColumnNamesTypes(bool aGetNames) const;
+  enum class State
+  {
+    UNINITIALIZED,
+    NOT_FINISHED,
+    FINISHED
+  };
 
-  MSIHANDLE      mView;
-  bool           mFinished;
-  MsInstallerRow mCurrentRow;
+  void UpdateCurrentHandle(const MsInstallerRecord & aRecord);
+
+  MSIHANDLE mViewHandle;
+  MSIHANDLE mCurrentRecordHandle;
+  State     mState;
 };
-}

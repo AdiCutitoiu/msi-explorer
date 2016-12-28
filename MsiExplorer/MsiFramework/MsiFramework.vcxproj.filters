@@ -30,22 +30,19 @@
     <ClInclude Include="MsInstallerDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstallerTable.h">
+    <ClInclude Include="MsInstallerTableSchema.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RecordFieldStringGetter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsInstallerCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MsInstallerView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstallerRowRecord.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MsInstallerRow.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MsInstallerTableSchema.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="RecordFieldStringGetter.h">
+    <ClInclude Include="MsInstallerRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -59,22 +56,19 @@
     <ClCompile Include="MsInstallerDatabase.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsInstallerTable.cpp">
+    <ClCompile Include="MsInstallerTableSchema.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RecordFieldStringGetter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsInstallerCell.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerView.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MsInstallerRowRecord.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MsInstallerRow.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MsInstallerTableSchema.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="RecordFieldStringGetter.cpp">
+    <ClCompile Include="MsInstallerRecord.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

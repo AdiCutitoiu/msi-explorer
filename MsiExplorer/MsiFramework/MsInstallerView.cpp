@@ -1,76 +1,90 @@
 #include "stdafx.h"
 #include "MsInstallerView.h"
+#include "RecordFieldStringGetter.h"
 
-namespace Utility
+MsInstallerView::MsInstallerView(MSIHANDLE               aDatabaseHandle,
+                                 const wstring &         aTableName,
+                                 const vector<wstring> & aTableColumns)
+  : mViewHandle(0)
+  , mCurrentRecordHandle(0)
+  , mState(State::UNINITIALIZED)
 {
-MsInstallerView::MsInstallerView(MSIHANDLE aDatabase, const std::wstring & aQuery)
-{
-  mView  = 0;
-  auto x = ::MsiDatabaseOpenView(aDatabase, aQuery.c_str(), &mView);
+  wstring columns = accumulate(aTableColumns.begin(), aTableColumns.end(), wstring(),
+                               [](const wstring & aResult, const wstring & aColumnName) {
+                                 return aResult == L"" ? aColumnName : aResult + L"," + aColumnName;
+                               });
 
-  MSIHANDLE rowHandle = 0;
-  ::MsiViewExecute(mView, rowHandle);
+  wstring query = L"SELECT " + columns + L" FROM " + aTableName;
 
-  if (::MsiViewFetch(mView, &rowHandle) == ERROR_SUCCESS)
-  {
-    mFinished   = false;
-    mCurrentRow = MsInstallerRow(rowHandle);
-  }
+  ::MsiDatabaseOpenView(aDatabaseHandle, query.c_str(), &mViewHandle);
 }
 
-pair<bool, MsInstallerRow> MsInstallerView::Fetch()
+void MsInstallerView::Execute()
 {
-  auto result = make_pair(!mFinished, mCurrentRow);
-
-  MSIHANDLE record = 0;
-  mFinished        = !(::MsiViewFetch(mView, &record) == ERROR_SUCCESS);
-
-  mCurrentRow = mFinished ? MsInstallerRow() : MsInstallerRow(record);
-
-  return result;
-}
-
-vector<MsInstallerRow> MsInstallerView::FetchAll()
-{
-  vector<MsInstallerRow> allRows;
-
-  auto fetched = Fetch();
-  while (fetched.first)
+  if (mState == State::FINISHED)
   {
-    allRows.push_back(fetched.second);
-    fetched = Fetch();
+    ::MsiViewClose(mViewHandle);
   }
 
-  return allRows;
+  if (mState == State::FINISHED || mState == State::UNINITIALIZED)
+  {
+    MSIHANDLE record = 0;
+    ::MsiViewExecute(mViewHandle, record);
+  }
+
+  mState = State::NOT_FINISHED;
 }
 
-vector<wstring> MsInstallerView::GetColumnNames() const
+bool MsInstallerView::UpdateCurrent(const MsInstallerRecord & aRecord)
 {
-  return GetColumnNamesTypes(true);
+  MsInstallerRecord backup(mCurrentRecordHandle);
+
+  UpdateCurrentHandle(aRecord);
+
+  if (::MsiViewModify(mViewHandle, MSIMODIFY_UPDATE, mCurrentRecordHandle) != ERROR_SUCCESS)
+  {
+    UpdateCurrentHandle(backup);
+    return false;
+  }
+
+  return true;
 }
 
-std::vector<std::wstring> MsInstallerView::GetColumnTypes() const
+pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
 {
-  return GetColumnNamesTypes(false);
+  if (mCurrentRecordHandle != 0)
+  {
+    MsiCloseHandle(mCurrentRecordHandle);
+  }
+
+  if (::MsiViewFetch(mViewHandle, &mCurrentRecordHandle) == ERROR_SUCCESS)
+  {
+    int             fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
+    vector<wstring> cellValues;
+
+    for (int i = 1; i <= fieldSize; ++i)
+    {
+      cellValues.push_back(RecordFieldStringGetter::Get(mCurrentRecordHandle, i));
+    }
+
+    return make_pair(true, MsInstallerRecord(cellValues));
+  }
+
+  mState               = State::FINISHED;
+  mCurrentRecordHandle = 0;
+
+  return make_pair(false, MsInstallerRecord());
 }
 
-MsInstallerView::~MsInstallerView()
+void MsInstallerView::UpdateCurrentHandle(const MsInstallerRecord & aRecord)
 {
-  MsiCloseHandle(mView);
-}
+  int fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
+  assert(fieldSize == aRecord.GetFieldNumber() && "Field sizes do not match");
 
-std::vector<std::wstring> MsInstallerView::GetColumnNamesTypes(bool aGetNames) const
-{
-  MSIHANDLE rowHandle         = 0;
-  auto      informationNeeded = aGetNames ? MSICOLINFO_NAMES : MSICOLINFO_TYPES;
-  ::MsiViewGetColumnInfo(mView, informationNeeded, &rowHandle);
+  for (int field = 1; field <= fieldSize; ++field)
+  {
+    wstring replacement = aRecord.GetField(field).Get();
 
-  MsInstallerRow row(rowHandle);
-
-  vector<wstring> result(row.GetFieldNumber());
-  transform(row.begin(), row.end(), result.begin(),
-            [](const auto & aRecord) { return aRecord.Get(); });
-
-  return result;
-}
+    ::MsiRecordSetString(mCurrentRecordHandle, field, replacement.c_str());
+  }
 }
