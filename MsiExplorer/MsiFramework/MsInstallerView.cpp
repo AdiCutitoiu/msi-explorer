@@ -41,13 +41,34 @@ bool MsInstallerView::UpdateCurrent(const MsInstallerRecord & aRecord)
 
   UpdateCurrentHandle(aRecord);
 
-  if (::MsiViewModify(mViewHandle, MSIMODIFY_UPDATE, mCurrentRecordHandle) != ERROR_SUCCESS)
+  if (::MsiViewModify(mViewHandle, MSIMODIFY_ASSIGN, mCurrentRecordHandle) != ERROR_SUCCESS)
   {
     UpdateCurrentHandle(backup);
     return false;
   }
 
   return true;
+}
+
+bool MsInstallerView::Insert(const MsInstallerRecord & aRecord)
+{
+  UINT fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
+
+  MSIHANDLE newRecord = ::MsiCreateRecord(fieldSize);
+
+  assert(aRecord.GetFieldNumber() == fieldSize);
+  for (UINT field = 1; field <= fieldSize; ++field)
+  {
+    wstring cellValue = aRecord.GetField(field - 1).Get();
+
+    ::MsiRecordSetString(newRecord, field, cellValue.c_str());
+  }
+
+  UINT state = ::MsiViewModify(mViewHandle, MSIMODIFY_INSERT, newRecord);
+
+  ::MsiViewModify(mViewHandle, MSIMODIFY_REFRESH, newRecord);
+
+  return state == ERROR_SUCCESS;
 }
 
 pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
@@ -59,7 +80,7 @@ pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
 
   if (::MsiViewFetch(mViewHandle, &mCurrentRecordHandle) == ERROR_SUCCESS)
   {
-    int             fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
+    UINT            fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
     vector<wstring> cellValues;
 
     for (int i = 1; i <= fieldSize; ++i)

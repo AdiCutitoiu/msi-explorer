@@ -9,13 +9,15 @@ class MsInstallerView
 public:
   MsInstallerView(MSIHANDLE                         aDatabaseHandle,
                   const std::wstring &              aTableName,
-                  const std::vector<std::wstring> & aTableColumns);
+                  const std::vector<std::wstring> & aTableColumns = { L"*" });
 
   void Execute();
 
   bool UpdateCurrent(const MsInstallerRecord & aRecord);
 
-  pair<bool, MsInstallerRecord> GetNext();
+  bool Insert(const MsInstallerRecord & aRecord);
+
+  std::pair<bool, MsInstallerRecord> GetNext();
 
 private:
   enum class State

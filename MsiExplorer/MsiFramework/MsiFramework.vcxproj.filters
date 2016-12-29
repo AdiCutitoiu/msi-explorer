@@ -39,13 +39,13 @@
     <ClInclude Include="MsInstallerCell.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsInstallerView.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MsInstallerRecord.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="MsInstallerTable.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MsInstallerView.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

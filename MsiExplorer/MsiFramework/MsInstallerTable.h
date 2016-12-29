@@ -9,17 +9,23 @@ public:
 
   UINT GetRowNumber() const;
 
-  bool InsertRow(const MsInstallerRecord & aRecord) const;
+  bool InsertRow(const MsInstallerRecord & aRecord);
 
   MsInstallerTableSchema GetTableSchema() const;
 
   std::vector<std::wstring> GetColumnNames() const;
 
-  bool UpdateRow(const std::wstring & aRecord) const;
+  bool UpdateRow(const MsInstallerRecord & aRecord);
 
-  MsInstallerView GetView() const;
+  MsInstallerView GetView(const std::vector<std::wstring> & aColumns) const;
 
 private:
-  MSIHANDLE mDatabaseHandle;
-  wstring   mTableName;
+  std::map<std::wstring, int> FindPrimaryKeyFields() const;
+
+  bool IsPrimaryKeyMatch(const MsInstallerRecord & aFirst,
+                         const MsInstallerRecord & aSecond,
+                         const std::map<std::wstring, int> & aFields) const;
+
+  MSIHANDLE    mDatabaseHandle;
+  std::wstring mTableName;
 };

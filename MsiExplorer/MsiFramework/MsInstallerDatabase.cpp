@@ -4,31 +4,11 @@
 MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
 {
   mDatabaseHandle = ::MsiGetActiveDatabase(aMsiHandle);
-
-  ReadTables();
 }
 
 MsInstallerDatabase::MsInstallerDatabase(const std::wstring & aMsiPath)
 {
-  ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_READONLY, &mDatabaseHandle);
-
-  // ReadTables();
-}
-
-void MsInstallerDatabase::ReadTables()
-{
-  //   auto view = Utility::MsInstallerView(mDatabaseHandle, TEXT("SELECT Name FROM _Tables"));
-  //
-  //   for (auto & fetched : view.FetchAll())
-  //   {
-  //     wstring tableName = fetched[0].Get();
-  //
-  //     mTables.push_back(MsInstallerTable(tableName, mDatabaseHandle));
-  //   }
-  //
-  //   sort(mTables.begin(), mTables.end(), [](const auto & aFirst, const auto & aSecond) {
-  //     return aFirst.GetName() < aSecond.GetName();
-  //   });
+  ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_TRANSACT, &mDatabaseHandle);
 }
 
 // std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
