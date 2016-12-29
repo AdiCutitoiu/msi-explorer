@@ -4,7 +4,7 @@
 
 MsInstallerView::MsInstallerView(MSIHANDLE               aDatabaseHandle,
                                  const wstring &         aTableName,
-                                 const vector<wstring> & aTableColumns)
+                                 const vector<wstring> & aTableColumns /*= { L"" }*/)
   : mViewHandle(0)
   , mCurrentRecordHandle(0)
   , mState(State::UNINITIALIZED)
