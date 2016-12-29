@@ -44,7 +44,6 @@ bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
   view.Execute();
 
   auto fetched = view.GetNext();
-
   while (fetched.first)
   {
     std::map<wstring, int> primaryKeyFields = FindPrimaryKeyFields();
@@ -53,6 +52,8 @@ bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
     {
       return view.UpdateCurrent(aRecord);
     }
+
+    fetched = view.GetNext();
   }
 
   return false;

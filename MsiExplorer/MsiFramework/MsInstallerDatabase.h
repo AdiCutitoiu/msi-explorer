@@ -19,5 +19,4 @@ public:
 
 private:
   MSIHANDLE mDatabaseHandle;
-  // std::vector<MsInstallerTable> mTables;
 };
