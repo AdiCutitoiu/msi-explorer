@@ -36,7 +36,7 @@ UINT MsInstallerRecord::GetFieldNumber() const
   return mCells.size();
 }
 
-MsInstallerCell MsInstallerRecord::GetField(int aIndex) const
+MsInstallerCell MsInstallerRecord::GetCell(int aIndex) const
 {
   if (aIndex < 0 || UINT(aIndex) >= mCells.size())
   {
@@ -44,6 +44,11 @@ MsInstallerCell MsInstallerRecord::GetField(int aIndex) const
   }
 
   return mCells[aIndex];
+}
+
+void MsInstallerRecord::SetCell(int aIndex, const MsInstallerCell & aCell)
+{
+  mCells[aIndex] = aCell;
 }
 
 std::vector<MsInstallerCell>::iterator MsInstallerRecord::begin()

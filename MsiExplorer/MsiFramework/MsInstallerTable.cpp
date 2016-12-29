@@ -59,7 +59,8 @@ bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
   return false;
 }
 
-MsInstallerView MsInstallerTable::GetView(const std::vector<std::wstring> & aColumns) const
+MsInstallerView MsInstallerTable::GetView(
+  const std::vector<std::wstring> & aColumns /*= { L"*" }*/) const
 {
   return MsInstallerView(mDatabaseHandle, mTableName);
 }
@@ -96,8 +97,8 @@ bool MsInstallerTable::IsPrimaryKeyMatch(const MsInstallerRecord & aFirst,
   {
     int fieldNr = field.second;
 
-    wstring firstValue  = aFirst.GetField(fieldNr).Get();
-    wstring secondValue = aSecond.GetField(fieldNr).Get();
+    wstring firstValue  = aFirst.GetCell(fieldNr).Get();
+    wstring secondValue = aSecond.GetCell(fieldNr).Get();
 
     if (firstValue != secondValue)
     {

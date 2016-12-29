@@ -47,9 +47,35 @@ int main()
 
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
 
-  auto schema = db.GetTableSchema(L"Dialog");
+  auto table = db.GetTable(L"Dialog");
 
-  auto result = schema.GetPrimaryKeyColumns();
+  {
+    auto view = table.GetView();
+    view.Execute();
+    for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
+    {
+      auto record = fetched.second;
+      if (record.GetCell(0).Get() == L"ErrorDlg")
+      {
+        record.SetCell(4, MsInstallerCell(L"1000"));
+        view.UpdateCurrent(record);
+      }
+    }
+  }
+
+  db.CommitChanges();
+
+  auto view = table.GetView();
+  view.Execute();
+  for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
+  {
+    auto record = fetched.second;
+    for (int field = 0; field < record.GetFieldNumber(); ++field)
+    {
+      std::wcout << record[field].Get() << ' ';
+    }
+    std::wcout << std::endl;
+  }
 
   return 0;
 }

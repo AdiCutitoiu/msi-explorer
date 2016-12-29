@@ -16,7 +16,9 @@ public:
 
   UINT GetFieldNumber() const;
 
-  MsInstallerCell GetField(int aIndex) const;
+  MsInstallerCell GetCell(int aIndex) const;
+
+  void SetCell(int aIndex, const MsInstallerCell & aCell);
 
   std::vector<MsInstallerCell>::iterator begin();
 

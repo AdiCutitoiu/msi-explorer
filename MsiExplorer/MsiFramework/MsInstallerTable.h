@@ -17,7 +17,7 @@ public:
 
   bool UpdateRow(const MsInstallerRecord & aRecord);
 
-  MsInstallerView GetView(const std::vector<std::wstring> & aColumns) const;
+  MsInstallerView GetView(const std::vector<std::wstring> & aColumns = { L"*" }) const;
 
 private:
   std::map<std::wstring, int> FindPrimaryKeyFields() const;

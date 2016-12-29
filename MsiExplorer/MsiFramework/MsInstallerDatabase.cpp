@@ -23,9 +23,11 @@ std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
   {
     auto record = fetched.second;
 
-    auto name = record.GetField(1).Get();
+    auto name = record.GetCell(0).Get();
 
     tableNames.push_back(name);
+
+    fetched = view.GetNext();
   }
 
   return tableNames;
@@ -46,7 +48,12 @@ MsInstallerTableSchema MsInstallerDatabase::GetTableSchema(const std::wstring & 
   return MsInstallerTableSchema(mDatabaseHandle, aTableName);
 }
 
+bool MsInstallerDatabase::CommitChanges()
+{
+  return ::MsiDatabaseCommit(mDatabaseHandle) == ERROR_SUCCESS;
+}
+
 MsInstallerDatabase::~MsInstallerDatabase()
 {
-  MsiCloseHandle(mDatabaseHandle);
+  ::MsiCloseHandle(mDatabaseHandle);
 }

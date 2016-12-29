@@ -15,6 +15,8 @@ public:
 
   MsInstallerTableSchema GetTableSchema(const std::wstring & aTableName) const;
 
+  bool CommitChanges();
+
   ~MsInstallerDatabase();
 
 private:

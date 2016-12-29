@@ -59,7 +59,7 @@ bool MsInstallerView::Insert(const MsInstallerRecord & aRecord)
   assert(aRecord.GetFieldNumber() == fieldSize);
   for (UINT field = 1; field <= fieldSize; ++field)
   {
-    wstring cellValue = aRecord.GetField(field - 1).Get();
+    wstring cellValue = aRecord.GetCell(field - 1).Get();
 
     ::MsiRecordSetString(newRecord, field, cellValue.c_str());
   }
@@ -104,7 +104,7 @@ void MsInstallerView::UpdateCurrentHandle(const MsInstallerRecord & aRecord)
 
   for (int field = 1; field <= fieldSize; ++field)
   {
-    wstring replacement = aRecord.GetField(field).Get();
+    wstring replacement = aRecord.GetCell(field - 1).Get();
 
     ::MsiRecordSetString(mCurrentRecordHandle, field, replacement.c_str());
   }
