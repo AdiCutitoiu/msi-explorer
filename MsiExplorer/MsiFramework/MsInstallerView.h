@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DatabaseHandle.h"
 #include "MsInstallerCell.h"
 #include "MsInstallerRecord.h"
 #include "MsInstallerTableSchema.h"
@@ -7,7 +8,7 @@
 class MsInstallerView
 {
 public:
-  MsInstallerView(MSIHANDLE                         aDatabaseHandle,
+  MsInstallerView(Utility::DatabaseHandle           aDatabaseHandle,
                   const std::wstring &              aTableName,
                   const std::vector<std::wstring> & aTableColumns = { L"*" });
 
@@ -29,7 +30,8 @@ private:
 
   void UpdateCurrentHandle(const MsInstallerRecord & aRecord);
 
-  MSIHANDLE mViewHandle;
-  MSIHANDLE mCurrentRecordHandle;
-  State     mState;
+  Utility::DatabaseHandle mDatabaseHandle;
+  MSIHANDLE               mViewHandle;
+  MSIHANDLE               mCurrentRecordHandle;
+  State                   mState;
 };

@@ -2,13 +2,16 @@
 #include "MsInstallerDatabase.h"
 
 MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
+  : mDatabaseHandle(::MsiGetActiveDatabase(aMsiHandle))
 {
-  mDatabaseHandle = ::MsiGetActiveDatabase(aMsiHandle);
 }
 
 MsInstallerDatabase::MsInstallerDatabase(const std::wstring & aMsiPath)
 {
-  ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_TRANSACT, &mDatabaseHandle);
+  MSIHANDLE handle = 0;
+  ::MsiOpenDatabase(aMsiPath.c_str(), MSIDBOPEN_TRANSACT, &handle);
+
+  mDatabaseHandle = Utility::DatabaseHandle(handle);
 }
 
 std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
@@ -51,9 +54,4 @@ MsInstallerTableSchema MsInstallerDatabase::GetTableSchema(const std::wstring & 
 bool MsInstallerDatabase::CommitChanges()
 {
   return ::MsiDatabaseCommit(mDatabaseHandle) == ERROR_SUCCESS;
-}
-
-MsInstallerDatabase::~MsInstallerDatabase()
-{
-  ::MsiCloseHandle(mDatabaseHandle);
 }

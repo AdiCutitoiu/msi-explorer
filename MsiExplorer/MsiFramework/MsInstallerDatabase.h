@@ -1,5 +1,6 @@
 #pragma once
 
+#include "DatabaseHandle.h"
 #include "MsInstallerTable.h"
 #include "MsInstallerTableSchema.h"
 
@@ -17,8 +18,6 @@ public:
 
   bool CommitChanges();
 
-  ~MsInstallerDatabase();
-
 private:
-  MSIHANDLE mDatabaseHandle;
+  Utility::DatabaseHandle mDatabaseHandle;
 };

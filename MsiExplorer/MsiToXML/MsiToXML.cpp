@@ -70,7 +70,7 @@ int main()
   for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
   {
     auto record = fetched.second;
-    for (int field = 0; field < record.GetFieldNumber(); ++field)
+    for (UINT field = 0; field < record.GetFieldNumber(); ++field)
     {
       std::wcout << record[field].Get() << ' ';
     }

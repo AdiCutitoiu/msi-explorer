@@ -15,6 +15,7 @@
 #include <iostream>
 #include <iterator>
 #include <map>
+#include <memory>
 #include <string>
 #include <tuple>
 #include <vector>

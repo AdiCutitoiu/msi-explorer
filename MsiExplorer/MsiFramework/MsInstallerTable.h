@@ -1,11 +1,12 @@
 #pragma once
+#include "DatabaseHandle.h"
 #include "MsInstallerTableSchema.h"
 #include "MsInstallerView.h"
 
 class MsInstallerTable
 {
 public:
-  MsInstallerTable(MSIHANDLE aDatabaseHandle, const std::wstring & aTableName);
+  MsInstallerTable(const Utility::DatabaseHandle aDatabaseHandle, const std::wstring & aTableName);
 
   UINT GetRowNumber() const;
 
@@ -26,6 +27,6 @@ private:
                          const MsInstallerRecord & aSecond,
                          const std::map<std::wstring, int> & aFields) const;
 
-  MSIHANDLE    mDatabaseHandle;
-  std::wstring mTableName;
+  Utility::DatabaseHandle mDatabaseHandle;
+  std::wstring            mTableName;
 };

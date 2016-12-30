@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "MsInstallerTable.h"
 
-MsInstallerTable::MsInstallerTable(MSIHANDLE aDatabaseHandle, const std::wstring & aTableName)
+MsInstallerTable::MsInstallerTable(const Utility::DatabaseHandle aDatabaseHandle,
+                                   const std::wstring &          aTableName)
   : mDatabaseHandle(aDatabaseHandle)
   , mTableName(aTableName)
 {

@@ -2,10 +2,11 @@
 #include "MsInstallerView.h"
 #include "RecordFieldStringGetter.h"
 
-MsInstallerView::MsInstallerView(MSIHANDLE               aDatabaseHandle,
+MsInstallerView::MsInstallerView(Utility::DatabaseHandle aDatabaseHandle,
                                  const wstring &         aTableName,
                                  const vector<wstring> & aTableColumns /*= { L"" }*/)
-  : mViewHandle(0)
+  : mDatabaseHandle(aDatabaseHandle)
+  , mViewHandle(0)
   , mCurrentRecordHandle(0)
   , mState(State::UNINITIALIZED)
 {
@@ -83,7 +84,7 @@ pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
     UINT            fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
     vector<wstring> cellValues;
 
-    for (int i = 1; i <= fieldSize; ++i)
+    for (UINT i = 1; i <= fieldSize; ++i)
     {
       cellValues.push_back(RecordFieldStringGetter::Get(mCurrentRecordHandle, i));
     }

@@ -75,6 +75,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DatabaseHandle.h" />
     <ClInclude Include="MsInstallerDatabase.h" />
     <ClInclude Include="MsInstallerCell.h" />
     <ClInclude Include="MsInstallerTable.h" />
@@ -87,6 +88,7 @@
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="DatabaseHandle.cpp" />
     <ClCompile Include="MsInstallerDatabase.cpp" />
     <ClCompile Include="MsInstallerCell.cpp" />
     <ClCompile Include="MsInstallerTable.cpp" />
