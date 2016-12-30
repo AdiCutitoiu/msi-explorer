@@ -10,6 +10,7 @@ public:
 
   UINT GetRowNumber() const;
 
+  std::wstring GetName() const;
 
   bool InsertRow(const MsInstallerRecord & aRecord);
 
