@@ -10,6 +10,7 @@ public:
 
   UINT GetRowNumber() const;
 
+
   bool InsertRow(const MsInstallerRecord & aRecord);
 
   MsInstallerTableSchema GetTableSchema() const;

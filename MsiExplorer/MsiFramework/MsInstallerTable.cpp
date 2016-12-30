@@ -22,6 +22,11 @@ UINT MsInstallerTable::GetRowNumber() const
   return counter;
 }
 
+wstring MsInstallerTable::GetName() const
+{
+  return mTableName;
+}
+
 bool MsInstallerTable::InsertRow(const MsInstallerRecord & aRecord)
 {
   MsInstallerView view(mDatabaseHandle, mTableName);
