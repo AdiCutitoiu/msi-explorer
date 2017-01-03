@@ -53,23 +53,35 @@ bool MsInstallerView::UpdateCurrent(const MsInstallerRecord & aRecord)
 
 bool MsInstallerView::Insert(const MsInstallerRecord & aRecord)
 {
-  UINT fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
+  bool isFinished = false;
+  if (mState == State::FINISHED || mState == State::UNINITIALIZED)
+  {
+    Execute();
+    GetNext();
+    isFinished = true;
+  }
 
+  UINT      fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
   MSIHANDLE newRecord = ::MsiCreateRecord(fieldSize);
 
   assert(aRecord.GetFieldNumber() == fieldSize);
   for (UINT field = 1; field <= fieldSize; ++field)
   {
     wstring cellValue = aRecord.GetCell(field - 1).Get();
-
     ::MsiRecordSetString(newRecord, field, cellValue.c_str());
   }
 
-  UINT state = ::MsiViewModify(mViewHandle, MSIMODIFY_INSERT, newRecord);
-
+  UINT result = ::MsiViewModify(mViewHandle, MSIMODIFY_INSERT, newRecord);
   ::MsiViewModify(mViewHandle, MSIMODIFY_REFRESH, newRecord);
 
-  return state == ERROR_SUCCESS;
+  if (isFinished)
+  {
+    ::MsiCloseHandle(mCurrentRecordHandle);
+    ::MsiViewClose(mViewHandle);
+    mState = State::FINISHED;
+  }
+
+  return result == ERROR_SUCCESS;
 }
 
 pair<bool, MsInstallerRecord> MsInstallerView::GetNext()

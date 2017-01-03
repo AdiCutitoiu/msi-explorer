@@ -5,13 +5,6 @@
 
 #include "../MsiFramework/MsInstallerDatabase.h"
 
-MsInstallerTable GetTable()
-{
-  MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
-
-  return db.GetTable(L"Dialog");
-}
-
 int main()
 {
   /*
@@ -51,33 +44,23 @@ int main()
 
   ::MsiCloseHandle(hand);
   */
-  {
-    auto table = GetTable();
-    {
-      auto view = table.GetView();
-      view.Execute();
-      for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
-      {
-        auto record = fetched.second;
-        if (record.GetCell(0).Get() == L"ErrorDlg")
-        {
-          record.SetCell(4, MsInstallerCell(L"1000"));
-          view.UpdateCurrent(record);
-        }
-      }
-    }
 
-    auto view = table.GetView();
-    view.Execute();
-    for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
-    {
-      auto record = fetched.second;
-      for (UINT field = 0; field < record.GetFieldNumber(); ++field)
-      {
-        std::wcout << record[field].Get() << ' ';
-      }
-      std::wcout << std::endl;
-    }
+  MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
+  auto                table = db.GetTable(L"Dialog");
+
+  auto view = table.GetView();
+  view.Execute();
+
+  view.GetNext();
+  MsInstallerRecord rec = view.GetNext().second;
+  rec.SetCell(0, MsInstallerCell(L"ProgressDlg2"));
+
+  for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
+  {
   }
+
+  table.InsertRow(rec);
+  db.CommitChanges();
+
   return 0;
 }
