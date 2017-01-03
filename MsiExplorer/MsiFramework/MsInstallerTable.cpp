@@ -87,9 +87,10 @@ map<wstring, int> MsInstallerTable::FindPrimaryKeyFields() const
   map<wstring, int> primaryKeyFields;
   copy_if(fields.begin(), fields.end(), inserter(primaryKeyFields, primaryKeyFields.begin()),
           [&](const pair<wstring, int> & aField) {
-            bool isFound = find(columns.begin(), columns.end(), aField.first) != columns.end();
+            bool isFound = find(primaryKeyColumns.begin(), primaryKeyColumns.end(), aField.first) !=
+                           primaryKeyColumns.end();
 
-            return !isFound;
+            return isFound;
           });
 
   return primaryKeyFields;

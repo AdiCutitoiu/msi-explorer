@@ -48,19 +48,7 @@ int main()
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
   auto                table = db.GetTable(L"Dialog");
 
-  auto view = table.GetView();
-  view.Execute();
-
-  view.GetNext();
-  MsInstallerRecord rec = view.GetNext().second;
-  rec.SetCell(0, MsInstallerCell(L"ProgressDlg2"));
-
-  for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
-  {
-  }
-
-  table.InsertRow(rec);
-  db.CommitChanges();
+  auto rowNumber = table.GetRowNumber();
 
   return 0;
 }
