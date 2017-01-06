@@ -48,7 +48,7 @@ int main()
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
   auto                table = db.GetTable(L"Dialog");
 
-  auto rowNumber = table.GetRowNumber();
+  auto vec = db.GetTableNames();
 
   return 0;
 }

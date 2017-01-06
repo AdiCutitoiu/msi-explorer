@@ -4,8 +4,10 @@
 namespace Utility
 {
 DatabaseHandle::DatabaseHandle(MSIHANDLE aDatabaseHandle)
-  : mDbHandlePtr(new MSIHANDLE(aDatabaseHandle),
-                 [](MSIHANDLE * aDatabaseHandle) { ::MsiCloseHandle(*aDatabaseHandle); })
+  : mDbHandlePtr(new MSIHANDLE(aDatabaseHandle), [](MSIHANDLE * aDatabaseHandle) {
+    ::MsiCloseHandle(*aDatabaseHandle);
+    delete aDatabaseHandle;
+  })
 {
 }
 DatabaseHandle::operator MSIHANDLE() const

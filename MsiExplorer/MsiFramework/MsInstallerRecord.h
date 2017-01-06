@@ -13,6 +13,7 @@ public:
   MsInstallerRecord(MSIHANDLE aRecordHandle);
 
   MsInstallerCell & operator[](int aIndex);
+  const MsInstallerCell & operator[](int aIndex) const;
 
   UINT GetFieldNumber() const;
 

@@ -8,7 +8,7 @@ MsInstallerTable::MsInstallerTable(const Utility::DatabaseHandle aDatabaseHandle
 {
 }
 
-UINT MsInstallerTable::GetRowNumber() const
+UINT MsInstallerTable::GetRowCount() const
 {
   MsInstallerView view(mDatabaseHandle, mTableName);
   view.Execute();

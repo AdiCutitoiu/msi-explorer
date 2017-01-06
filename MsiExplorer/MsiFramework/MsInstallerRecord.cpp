@@ -31,6 +31,16 @@ MsInstallerCell & MsInstallerRecord::operator[](int aIndex)
   return mCells[aIndex];
 }
 
+const MsInstallerCell & MsInstallerRecord::operator[](int aIndex) const
+{
+  if (aIndex < 0 || UINT(aIndex) >= mCells.size())
+  {
+    assert(!"Invalid record");
+  }
+
+  return mCells[aIndex];
+}
+
 UINT MsInstallerRecord::GetFieldNumber() const
 {
   return mCells.size();

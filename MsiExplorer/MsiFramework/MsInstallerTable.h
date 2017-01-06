@@ -8,7 +8,7 @@ class MsInstallerTable
 public:
   MsInstallerTable(const Utility::DatabaseHandle aDatabaseHandle, const std::wstring & aTableName);
 
-  UINT GetRowNumber() const;
+  UINT GetRowCount() const;
 
   std::wstring GetName() const;
 

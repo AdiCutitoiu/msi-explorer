@@ -9,7 +9,7 @@ public:
                          const std::wstring &              aTableName,
                          const std::vector<std::wstring> & aColumnNames = { L"*" });
 
-  std::vector<std::wstring> GetColumnNames() const;
+  vector<std::wstring> GetColumnNames() const;
 
   std::wstring GetColumnType(const std::wstring & aColumnName) const;
 
