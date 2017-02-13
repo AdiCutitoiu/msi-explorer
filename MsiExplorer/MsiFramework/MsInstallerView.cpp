@@ -53,14 +53,15 @@ bool MsInstallerView::UpdateCurrent(const MsInstallerRecord & aRecord)
 
 bool MsInstallerView::Insert(const MsInstallerRecord & aRecord)
 {
+  // if there are no records fetched, fetch a record and set isFinished flag to true
   bool isFinished = false;
   if (mState == State::FINISHED || mState == State::UNINITIALIZED)
   {
-    Execute();
-    GetNext();
     isFinished = true;
+    GetNext();
   }
 
+  // create a record
   UINT      fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);
   MSIHANDLE newRecord = ::MsiCreateRecord(fieldSize);
 
@@ -71,9 +72,11 @@ bool MsInstallerView::Insert(const MsInstallerRecord & aRecord)
     ::MsiRecordSetString(newRecord, field, cellValue.c_str());
   }
 
+  // insert the record
   UINT result = ::MsiViewModify(mViewHandle, MSIMODIFY_INSERT, newRecord);
   ::MsiViewModify(mViewHandle, MSIMODIFY_REFRESH, newRecord);
 
+  // if the flag was set to true, close the view
   if (isFinished)
   {
     ::MsiCloseHandle(mCurrentRecordHandle);

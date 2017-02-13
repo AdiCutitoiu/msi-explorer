@@ -11,7 +11,6 @@ MsInstallerTable::MsInstallerTable(const Utility::DatabaseHandle aDatabaseHandle
 UINT MsInstallerTable::GetRowCount() const
 {
   MsInstallerView view(mDatabaseHandle, mTableName);
-  view.Execute();
 
   UINT counter = 0;
   for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
@@ -47,7 +46,6 @@ vector<std::wstring> MsInstallerTable::GetColumnNames() const
 bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
 {
   MsInstallerView view(mDatabaseHandle, mTableName);
-  view.Execute();
 
   auto fetched = view.GetNext();
   while (fetched.first)

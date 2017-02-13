@@ -21,10 +21,6 @@ public:
                   const std::wstring &              aTableName,
                   const std::vector<std::wstring> & aTableColumns = { L"*" });
 
-  /**
-   * @brief executes the view
-   */
-  void Execute();
 
   /**
    * @brief updates the current record with aRecord
@@ -41,7 +37,10 @@ public:
   bool Insert(const MsInstallerRecord & aRecord);
 
   /**
+   * A call to GetNext after the bool in the return is false will cause another execution of the view.
+   *
    * @returns a pair consisting of a bool(true if the view has not finished yet) and the next record
+   * 
    */
   std::pair<bool, MsInstallerRecord> GetNext();
 
@@ -54,9 +53,16 @@ private:
   };
 
   /**
-   * 
+   * @brief updates the current handle with the information in a record
+   *
+   * @param aRecord the record which contains the information to update the current handle
    */
   void UpdateCurrentHandle(const MsInstallerRecord & aRecord);
+
+  /**
+   * @brief executes the view
+   */
+  void Execute();
 
   Utility::DatabaseHandle mDatabaseHandle;      // handle to the database
   MSIHANDLE               mViewHandle;          // the view handle

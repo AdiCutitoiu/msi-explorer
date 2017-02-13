@@ -19,7 +19,6 @@ std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
   vector<wstring> tableNames;
 
   MsInstallerView view(mDatabaseHandle, L"_Tables", { L"Name" });
-  view.Execute();
 
   auto fetched = view.GetNext();
   while (fetched.first)
