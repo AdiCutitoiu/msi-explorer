@@ -10,6 +10,8 @@
 #include <stdio.h>
 #include <tchar.h>
 
+#include <assert.h>
+
 #include <algorithm>
 #include <fstream>
 #include <iostream>
@@ -20,6 +22,7 @@
 #include <tuple>
 #include <vector>
 #include <windows.h>
+#include <regex>
 
 #include <stdio.h>
 

@@ -4,47 +4,20 @@
 #include "stdafx.h"
 
 #include "../MsiFramework/MsInstallerDatabase.h"
+#include "CmdHandler.h"
 
-int main()
+int main(int argc, char *argv[])
 {
+  CmdHandler cmd(argc, argv);
+  
+  if (cmd.IsValidPath())
+  {
+    auto path = cmd.GetMsiPath();
+    auto parent = cmd.GetParentFolderPath();
+  }
+
+
   /*
-  MSIHANDLE hand = 0;
-  UINT uiStatus = ::MsiOpenDatabase(TEXT("C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi"),
-  MSIDBOPEN_TRANSACT, &hand);
-
-  if (uiStatus == ERROR_SUCCESS)
-  {
-    std::cout << "Opened successfully\n";
-
-    MSIHANDLE view = 0;
-    auto result = MsiDatabaseOpenView(hand, TEXT("SELECT Dialog,Width,Height FROM Dialog"), &view);
-
-    MSIHANDLE record = 0;
-    result = MsiViewExecute(view, record);
-
-    while (MsiViewFetch(view, &record) == ERROR_SUCCESS)
-    {
-      UINT nrFields = MsiRecordGetFieldCount(record);
-
-      for (int i = 1; i <= nrFields; i++)
-      {
-        TCHAR name[256];
-        DWORD buffer = DWORD(256);
-        MsiRecordGetString(record, i, name, &buffer);
-
-        std::wcout << name << ' ';
-      }
-      std::cout << '\n';
-    }
-  }
-  else
-  {
-    std::cout << "Not opened successfully\n";
-  }
-
-  ::MsiCloseHandle(hand);
-  */
-
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
   auto                table = db.GetTable(L"Dialog");
   auto schema = table.GetTableSchema();
@@ -62,6 +35,6 @@ int main()
   {
     std::wcout << fetched.second[0].Get() << L'\n';
   }
-  
+  */
   return 0;
 }
