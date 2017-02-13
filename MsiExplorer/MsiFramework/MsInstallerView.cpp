@@ -91,6 +91,11 @@ pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
     MsiCloseHandle(mCurrentRecordHandle);
   }
 
+  if (mState != State::NOT_FINISHED)
+  {
+    Execute();
+  }
+
   if (::MsiViewFetch(mViewHandle, &mCurrentRecordHandle) == ERROR_SUCCESS)
   {
     UINT            fieldSize = ::MsiRecordGetFieldCount(mCurrentRecordHandle);

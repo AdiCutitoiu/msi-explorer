@@ -73,17 +73,22 @@ MsInstallerView MsInstallerTable::GetView(
 
 map<wstring, int> MsInstallerTable::FindPrimaryKeyFields() const
 {
-  auto schema = GetTableSchema();
-
+  auto schema            = GetTableSchema();
   auto columns           = schema.GetColumnNames();
   auto primaryKeyColumns = schema.GetPrimaryKeyColumns();
 
+  // builds a map consisting of pairs <columnName, index>
+  // columnName - name of the column
+  // index      -the position of the column in the table
   map<wstring, int> fields;
   transform(columns.begin(), columns.end(), inserter(fields, fields.begin()),
             [&](auto & aColumnName) {
               return make_pair(aColumnName, distance(&columns[0], &aColumnName));
             });
 
+  // builds a map consisting of pairs <pkColumnName, index>
+  // pkColumnName - the name of the primary key column
+  // index        - the position of the column in the table
   map<wstring, int> primaryKeyFields;
   copy_if(fields.begin(), fields.end(), inserter(primaryKeyFields, primaryKeyFields.begin()),
           [&](const pair<wstring, int> & aField) {

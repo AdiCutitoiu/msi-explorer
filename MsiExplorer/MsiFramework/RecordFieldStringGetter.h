@@ -1,7 +1,6 @@
 #pragma once
 
-class RecordFieldStringGetter
+namespace RecordFieldStringGetter
 {
-public:
-  static std::wstring Get(MSIHANDLE aRecord, int aField);
+  std::wstring Get(MSIHANDLE aRecord, int aField);
 };
