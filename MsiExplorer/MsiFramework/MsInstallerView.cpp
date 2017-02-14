@@ -9,6 +9,7 @@ MsInstallerView::MsInstallerView(Utility::DatabaseHandle aDatabaseHandle,
   , mViewHandle(0)
   , mCurrentRecordHandle(0)
   , mState(State::UNINITIALIZED)
+  , mColumnNames(aTableColumns)
 {
   wstring columns = accumulate(aTableColumns.begin(), aTableColumns.end(), wstring(),
                                [](const wstring & aResult, const wstring & aColumnName) {
@@ -116,6 +117,11 @@ pair<bool, MsInstallerRecord> MsInstallerView::GetNext()
   mCurrentRecordHandle = 0;
 
   return make_pair(false, MsInstallerRecord());
+}
+
+vector<wstring> MsInstallerView::GetColumnNames() const
+{
+  return mColumnNames;
 }
 
 void MsInstallerView::UpdateCurrentHandle(const MsInstallerRecord & aRecord)

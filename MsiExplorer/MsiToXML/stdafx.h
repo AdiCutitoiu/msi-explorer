@@ -13,6 +13,7 @@
 #include <assert.h>
 
 #include <algorithm>
+#include <numeric>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -25,6 +26,8 @@
 #include <regex>
 
 #include <stdio.h>
+#include <iostream>
+#include <fstream>
 
 #include <Msi.h>
 

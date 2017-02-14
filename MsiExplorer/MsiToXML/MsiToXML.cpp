@@ -5,15 +5,22 @@
 
 #include "../MsiFramework/MsInstallerDatabase.h"
 #include "CmdHandler.h"
+#include "XmlWriter.h"
 
 int main(int argc, char *argv[])
 {
+  auto start = ::GetTickCount();
+
   CmdHandler cmd(argc, argv);
   
   if (cmd.IsValidPath())
   {
-    auto path = cmd.GetMsiPath();
-    auto parent = cmd.GetParentFolderPath();
+    auto path     = cmd.GetMsiPath();
+
+    auto xmlPath = cmd.GetParentFolderPath() + L"file.xml";
+    wofstream out(xmlPath);
+
+    XmlWriter(out, MsInstallerDatabase(path)).Write();
   }
 
 
@@ -36,5 +43,8 @@ int main(int argc, char *argv[])
     std::wcout << fetched.second[0].Get() << L'\n';
   }
   */
+
+  cout << "Time: " << double(::GetTickCount() - start) / 1000 << " seconds";
+
   return 0;
 }

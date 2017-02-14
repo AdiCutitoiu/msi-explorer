@@ -91,6 +91,11 @@ bool MsInstallerTableSchema::IsNullable(const wstring & aColumnName) const
   return get<ID_PRIMARY_KEY>(*found);
 }
 
+vector<MsInstallerTableSchema::ColumnAttributes> MsInstallerTableSchema::GetColumnAttributes() const
+{
+  return mColumns;
+}
+
 void MsInstallerTableSchema::MarkPrimaryKeys(MSIHANDLE aDatabaseHandle, const wstring & aTableName)
 {
   MSIHANDLE record = 0;

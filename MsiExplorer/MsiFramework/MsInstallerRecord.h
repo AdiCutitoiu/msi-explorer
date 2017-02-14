@@ -54,6 +54,16 @@ public:
    */
   std::vector<MsInstallerCell>::iterator end();
 
+  /**
+   * @returns a const iterator to the beginning of the record
+   */
+  std::vector<MsInstallerCell>::const_iterator cbegin() const;
+
+  /**
+   * @returns a const iterator to the end of the record
+   */
+  std::vector<MsInstallerCell>::const_iterator cend() const;
+
 private:
   std::vector<MsInstallerCell> mCells;  // the vector of cells
 };

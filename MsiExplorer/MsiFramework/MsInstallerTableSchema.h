@@ -66,6 +66,11 @@ public:
    */
   bool IsNullable(const std::wstring & aColumnName) const;
 
+  /**
+   * @returns a vector containing the attributes of all columns
+   */
+  vector<ColumnAttributes> GetColumnAttributes() const;
+
 private:
   /**
    * @brief marks the primary keys in mColumns(sets PrimaryKey in ColumnAttributes to true)

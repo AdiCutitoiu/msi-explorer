@@ -5,7 +5,7 @@
 MsInstallerRecord::MsInstallerRecord(const std::vector<std::wstring> aCellsValues)
 {
   transform(aCellsValues.begin(), aCellsValues.end(), back_inserter(mCells),
-            [](const auto & aCellValue) { return MsInstallerCell(aCellValue); });
+    [](const auto & aCellValue) { return MsInstallerCell(aCellValue); });
 }
 
 MsInstallerRecord::MsInstallerRecord(MSIHANDLE aRecordHandle)
@@ -69,4 +69,14 @@ std::vector<MsInstallerCell>::iterator MsInstallerRecord::begin()
 std::vector<MsInstallerCell>::iterator MsInstallerRecord::end()
 {
   return mCells.end();
+}
+
+std::vector<MsInstallerCell>::const_iterator MsInstallerRecord::cbegin() const
+{
+  return mCells.cbegin();
+}
+
+std::vector<MsInstallerCell>::const_iterator MsInstallerRecord::cend() const
+{
+  return mCells.cend();
 }

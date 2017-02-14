@@ -44,6 +44,8 @@ public:
    */
   std::pair<bool, MsInstallerRecord> GetNext();
 
+  vector<wstring> GetColumnNames() const;
+
 private:
   enum class State  // the state of the view
   {
@@ -68,4 +70,5 @@ private:
   MSIHANDLE               mViewHandle;          // the view handle
   MSIHANDLE               mCurrentRecordHandle; // a handle to the last fetched record
   State                   mState;               // the state of this view
+  vector<wstring>         mColumnNames;         // the column names of the view
 };

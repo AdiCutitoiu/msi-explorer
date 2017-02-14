@@ -88,7 +88,12 @@
   <ItemGroup>
     <ClInclude Include="CmdHandler.h" />
     <ClInclude Include="stdafx.h" />
+    <ClInclude Include="TableContentWriter.h" />
+    <ClInclude Include="TableSchemaWriter.h" />
+    <ClInclude Include="TableWriter.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="Writer.h" />
+    <ClInclude Include="XmlWriter.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CmdHandler.cpp" />
@@ -97,6 +102,11 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="TableContentWriter.cpp" />
+    <ClCompile Include="TableSchemaWriter.cpp" />
+    <ClCompile Include="TableWriter.cpp" />
+    <ClCompile Include="Writer.cpp" />
+    <ClCompile Include="XmlWriter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MsiFramework\MsiFramework.vcxproj">
