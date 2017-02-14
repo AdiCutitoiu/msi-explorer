@@ -65,3 +65,6 @@ MsiExplorer/.vs
 *.obj
 *.obj
 MsiExplorer/MsiFramework/Release/MsiPropertyGetterSetter.obj
+MsiExplorer/MsiFramework/Release/MsiFramework.pch
+*.pdb
+*.tlog
