@@ -13,6 +13,6 @@ public:
 private:
   void WriteRow(const MsInstallerRecord & aRow) const;
 
-  MsInstallerTable mTable;
-  vector<wstring>  mColumnNames;
+  const MsInstallerTable kTable;
+  const vector<wstring>  mColumnNames;
 };

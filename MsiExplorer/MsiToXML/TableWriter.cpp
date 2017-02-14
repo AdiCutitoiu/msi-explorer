@@ -3,19 +3,19 @@
 
 TableWriter::TableWriter(std::wostream & aOstream, const MsInstallerTable & aTable)
   : Writer(aOstream)
-  , mTable(aTable)
+  , kTable(aTable)
 {
 }
 
 void TableWriter::Write() const
 {
-  mOstream << L"\t" << L"<Table Name=\"" << mTable.GetName() << "\">\n";
+  mOstream << L"\t" << L"<Table Name=\"" << kTable.GetName() << "\">\n";
 
-  auto schema = mTable.GetTableSchema();
+  auto schema = kTable.GetTableSchema();
   TableSchemaWriter schemaWriter(mOstream, schema);
   schemaWriter.Write();
 
-  TableContentWriter contentWriter(mOstream, mTable);
+  TableContentWriter contentWriter(mOstream, kTable);
   contentWriter.Write();
 
   mOstream << L"\t" << L"</Table>\n";

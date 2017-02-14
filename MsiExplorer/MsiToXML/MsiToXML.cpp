@@ -20,7 +20,7 @@ int main(int argc, char *argv[])
     auto xmlPath = cmd.GetParentFolderPath() + L"file.xml";
     wofstream out(xmlPath);
 
-    XmlWriter(out, MsInstallerDatabase(path)).Write();
+    XmlWriter(out, path).Write();
   }
 
 

@@ -12,5 +12,5 @@ public:
 private:
   void WriteColumnTag(const MsInstallerTableSchema::ColumnAttributes & aAttributes) const;
 
-  MsInstallerTableSchema mSchema;
+  const MsInstallerTableSchema kSchema;
 };

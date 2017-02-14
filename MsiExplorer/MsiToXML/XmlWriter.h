@@ -5,10 +5,10 @@
 class XmlWriter : public Writer
 {
 public:
-  XmlWriter(std::wostream & aOstream, const MsInstallerDatabase & aDatabase);
+  XmlWriter(std::wostream & aOstream, const wstring & aMsiPath);
 
   void Write() const override;
 
 private:
-  const MsInstallerDatabase & kDatabase;
+  const MsInstallerDatabase kDatabase;
 };

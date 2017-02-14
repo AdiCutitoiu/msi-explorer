@@ -3,7 +3,7 @@
 
 TableContentWriter::TableContentWriter(std::wostream & aOstream, const MsInstallerTable & aTable)
   : Writer(aOstream)
-  , mTable(aTable)
+  , kTable(aTable)
   , mColumnNames(aTable.GetColumnNames())
 {
 }
@@ -12,7 +12,7 @@ void TableContentWriter::Write() const
 {
   mOstream << L"\t\t" << L"<Content>\n";
 
-  auto view = mTable.GetView();
+  auto view = kTable.GetView();
   for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
   {
     WriteRow(fetched.second);

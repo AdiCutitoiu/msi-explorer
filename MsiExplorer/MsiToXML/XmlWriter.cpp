@@ -2,9 +2,9 @@
 #include "XmlWriter.h"
 #include "TableWriter.h"
 
-XmlWriter::XmlWriter(std::wostream & aOstream, const MsInstallerDatabase & aDatabase)
+XmlWriter::XmlWriter(std::wostream & aOstream, const wstring & aMsiPath)
   : Writer(aOstream)
-  , kDatabase(aDatabase)
+  , kDatabase(aMsiPath)
 {
 }
 

@@ -12,5 +12,5 @@ public:
   void Write() const override;
 
 private:
-  MsInstallerTable mTable;
+  const MsInstallerTable kTable;
 };

@@ -3,7 +3,7 @@
 
 TableSchemaWriter::TableSchemaWriter(std::wostream & aOstream, const MsInstallerTableSchema & aSchema)
   : Writer(aOstream)
-  , mSchema(aSchema)
+  , kSchema(aSchema)
 {
 }
 
@@ -11,7 +11,7 @@ void TableSchemaWriter::Write() const
 {
   mOstream << L"\t\t<Schema>\n";
 
-  auto columnAttributes = mSchema.GetColumnAttributes();
+  auto columnAttributes = kSchema.GetColumnAttributes();
   for (const auto & attributes : columnAttributes)
   {
     WriteColumnTag(attributes);
@@ -35,7 +35,7 @@ void TableSchemaWriter::WriteColumnTag(const MsInstallerTableSchema::ColumnAttri
 
   mOstream << L"Nullable=\"" << (get<ID::ID_NULLABLE>(aAttributes) ? "T" : "F") << L"\" ";
 
-  mOstream << L"Primary Key=\"" << (get<ID::ID_PRIMARY_KEY>(aAttributes) ? L"T" : L"F") << L"\"";
+  mOstream << L"PrimaryKey=\"" << (get<ID::ID_PRIMARY_KEY>(aAttributes) ? L"T" : L"F") << L"\"";
 
   mOstream << L">\n";
 }
