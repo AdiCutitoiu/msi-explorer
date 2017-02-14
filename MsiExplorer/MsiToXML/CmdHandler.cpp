@@ -3,12 +3,12 @@
 
 using namespace std;
 
-CmdHandler::CmdHandler(int aArgc, char * aArgv[])
+CmdHandler::CmdHandler(int aArgCount, char * aArgArray[])
 {
-  assert(aArgc > 1);
+  assert(aArgCount > 1);
 
   // take the last path only
-  char * str = aArgv[aArgc - 1];
+  char * str = aArgArray[aArgCount - 1];
   auto length = strlen(str);
 
 
@@ -33,7 +33,7 @@ wstring CmdHandler::GetParentFolderPath()
 bool CmdHandler::IsValidPath()
 {
   // C:\Users\Folder1\Folder2\sample.msi
-  static const wregex expression(L"^[A-Z]:\\\\([A-Za-z0-9 ]+\\\\)+[A-Za-z0-9 ]+\.msi");
+  static const wregex expression(L"^[A-Z]:\\\\([A-Za-z0-9 ]+\\\\)*[A-Za-z0-9 ]+\\.msi");
 
   return regex_match(mMsiPath, expression);
 }
