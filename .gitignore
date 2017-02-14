@@ -61,3 +61,7 @@ MsiExplorer/MsiExplorer.VC.VC.opendb
 MsiExplorer/MsiExplorer.VC.db
 MsiExplorer/.vs
 *.suo
+*.log
+*.obj
+*.obj
+MsiExplorer/MsiFramework/Release/MsiPropertyGetterSetter.obj

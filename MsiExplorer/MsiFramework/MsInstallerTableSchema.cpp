@@ -66,7 +66,7 @@ std::vector<std::wstring> MsInstallerTableSchema::GetPrimaryKeyColumns() const
 {
   vector<ColumnAttributes> primaryKeyColumns;
   copy_if(mColumns.begin(), mColumns.end(), back_inserter(primaryKeyColumns),
-          [](const auto & aColumn) { return get<ID_NULLABLE>(aColumn); });
+          [](const auto & aColumn) { return get<ID_PRIMARY_KEY>(aColumn); });
 
   vector<wstring> result(primaryKeyColumns.size());
   transform(primaryKeyColumns.begin(), primaryKeyColumns.end(), result.begin(),
@@ -80,7 +80,7 @@ bool MsInstallerTableSchema::IsPrimaryKey(const wstring & aColumnName) const
   auto found = find_if(mColumns.begin(), mColumns.end(),
                        [&](const auto & aColumn) { return get<ID_COLUMN_NAME>(aColumn) == aColumnName; });
 
-  return get<ID_NULLABLE>(*found);
+  return get<ID_PRIMARY_KEY>(*found);
 }
 
 bool MsInstallerTableSchema::IsNullable(const wstring & aColumnName) const
@@ -88,7 +88,7 @@ bool MsInstallerTableSchema::IsNullable(const wstring & aColumnName) const
   auto found = find_if(mColumns.begin(), mColumns.end(),
                        [&](const auto & aColumn) { return get<ID_COLUMN_NAME>(aColumn) == aColumnName; });
 
-  return get<ID_PRIMARY_KEY>(*found);
+  return get<ID_NULLABLE>(*found);
 }
 
 vector<MsInstallerTableSchema::ColumnAttributes> MsInstallerTableSchema::GetColumnAttributes() const
@@ -99,11 +99,11 @@ vector<MsInstallerTableSchema::ColumnAttributes> MsInstallerTableSchema::GetColu
 void MsInstallerTableSchema::MarkPrimaryKeys(MSIHANDLE aDatabaseHandle, const wstring & aTableName)
 {
   MSIHANDLE record = 0;
-  ::MsiDatabaseGetPrimaryKeys(aDatabaseHandle, aTableName.c_str(), &record);
+  UINT status = ::MsiDatabaseGetPrimaryKeys(aDatabaseHandle, aTableName.c_str(), &record);
 
   int             fieldSize = MsiRecordGetFieldCount(record);
   vector<wstring> primaryKeys;
-  for (int i = 0; i < fieldSize; ++i)
+  for (int i = 1; i <= fieldSize; ++i)
   {
     primaryKeys.emplace_back(RecordFieldStringGetter::Get(record, i));
   }
@@ -111,7 +111,7 @@ void MsInstallerTableSchema::MarkPrimaryKeys(MSIHANDLE aDatabaseHandle, const ws
   for (auto & column : mColumns)
   {
     if (find(primaryKeys.begin(), primaryKeys.end(), get<ID_COLUMN_NAME>(column)) != primaryKeys.end())
-      get<ID_NULLABLE>(column) = true;
+      get<ID_PRIMARY_KEY>(column) = true;
   }
 
   MsiCloseHandle(record);
@@ -140,7 +140,7 @@ void MsInstallerTableSchema::MarkNullableColumns(MSIHANDLE       aDatabaseHandle
   {
     if (find(nullableCols.begin(), nullableCols.end(), get<ID_COLUMN_NAME>(column)) != nullableCols.end())
     {
-      get<ID_PRIMARY_KEY>(column) = true;
+      get<ID_NULLABLE>(column) = true;
     }
   }
 
