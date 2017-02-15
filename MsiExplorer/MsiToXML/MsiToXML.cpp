@@ -11,16 +11,20 @@ int main(int argc, char *argv[])
 {
   auto start = ::GetTickCount();
 
-  CmdHandler cmd(argc, argv);
-  
-  if (cmd.IsValidPath())
+  try
   {
+    CmdHandler cmd(argc, argv);
+
     auto path     = cmd.GetMsiPath();
 
-    auto xmlPath = cmd.GetParentFolderPath() + L"file.xml";
+    auto xmlPath = cmd.GetXmlPath();
     wofstream out(xmlPath);
 
     XmlWriter(out, path).Write();
+  }
+  catch (std::wstring & aMessage)
+  {
+    wcout << aMessage << L'\n';
   }
 
 

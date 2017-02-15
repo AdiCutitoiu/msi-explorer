@@ -16,6 +16,9 @@ CmdHandler::CmdHandler(int aArgCount, char * aArgArray[])
   mMsiPath.resize(length, L' ');
   transform(str, str + length, mMsiPath.begin(), 
             [](char aChar) { return static_cast<wchar_t>(aChar); });
+
+  if (!IsValidPath(mMsiPath))
+    throw L"Invalid path: " + mMsiPath;
 }
 
 wstring CmdHandler::GetMsiPath()
@@ -30,10 +33,21 @@ wstring CmdHandler::GetParentFolderPath()
   return wstring(mMsiPath.begin(), mMsiPath.begin() + last + 1);
 }
 
-bool CmdHandler::IsValidPath()
+wstring CmdHandler::GetXmlPath()
+{
+  wstring path = mMsiPath;
+
+  auto pos = path.find_last_of('.');
+
+  path.replace(pos, 4, L".xml");
+
+  return path;
+}
+
+bool CmdHandler::IsValidPath(const wstring & aMsiPath)
 {
   // C:\Users\Folder1\Folder2\sample.msi
   static const wregex expression(L"^[A-Z]:\\\\([A-Za-z0-9 ]+\\\\)*[A-Za-z0-9 ]+\\.msi");
 
-  return regex_match(mMsiPath, expression);
+  return regex_match(aMsiPath, expression);
 }
