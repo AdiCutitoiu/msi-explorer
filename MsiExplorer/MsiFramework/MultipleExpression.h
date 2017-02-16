@@ -4,7 +4,7 @@
 class MultipleExpression : public Expression
 {
 public:
-  MultipleExpression(vector<shared_ptr<Expression>> aExpressions);
+  explicit MultipleExpression(vector<shared_ptr<Expression>> aExpressions);
 
 protected:
   std::map<wstring, Expression *> BuildVariableMap() override;

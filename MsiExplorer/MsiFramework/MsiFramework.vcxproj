@@ -76,6 +76,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AndExpression.h" />
+    <ClInclude Include="ColumnSelector.h" />
     <ClInclude Include="DatabaseHandle.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="MsInstallerDatabase.h" />
@@ -97,6 +98,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AndExpression.cpp" />
+    <ClCompile Include="ColumnSelector.cpp" />
     <ClCompile Include="DatabaseHandle.cpp" />
     <ClCompile Include="Expression.cpp" />
     <ClCompile Include="MsInstallerDatabase.cpp" />

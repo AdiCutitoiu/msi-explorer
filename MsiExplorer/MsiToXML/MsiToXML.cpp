@@ -15,33 +15,31 @@
 int main(int argc, char * argv[])
 {
   auto var1 = make_shared<VariableExpression>(L"Attributes", L"1");
-  auto var2 = make_shared<VariableExpression>(L"Width", L"370");
+  auto var2 = make_shared<VariableExpression>(L"Width", L"260");
 
   vector<shared_ptr<Expression>> vec     = { var1, var2 };
-  auto                           andexpr = make_shared<AndExpression>(vec);
+  auto                           andexpr = (make_shared<OrExpression>(vec));
   auto                           exp     = Predicate(andexpr);
 
   auto cond = exp.Get();
 
   auto start = ::GetTickCount();
 
-  /*
-  try
-  {
-    CmdHandler cmd(argc, argv);
+  /* try
+   {
+     CmdHandler cmd(argc, argv);
 
-    auto path = cmd.GetMsiPath();
+     auto path = cmd.GetMsiPath();
 
-    auto      xmlPath = cmd.GetXmlPath();
-    wofstream out(xmlPath);
+     auto      xmlPath = cmd.GetXmlPath();
+     wofstream out(xmlPath);
 
-    XmlWriter(out, path).Write();
-  }
-  catch (std::wstring & aMessage)
-  {
-    wcout << aMessage << L'\n';
-  }
-  */
+     XmlWriter(out, path).Write();
+   }
+   catch (std::wstring & aMessage)
+   {
+     wcout << aMessage << L'\n';
+   }*/
 
   MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
   auto                table  = db.GetTable(L"Dialog");
@@ -62,6 +60,5 @@ int main(int argc, char * argv[])
   }
 
   cout << "Time: " << double(::GetTickCount() - start) / 1000 << " seconds";
-
   return 0;
 }

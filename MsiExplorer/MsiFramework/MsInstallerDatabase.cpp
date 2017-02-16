@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "MsInstallerDatabase.h"
+#include "ColumnSelector.h"
 
 MsInstallerDatabase::MsInstallerDatabase(MSIHANDLE aMsiHandle)
   : mDatabaseHandle(::MsiGetActiveDatabase(aMsiHandle))
@@ -18,7 +19,7 @@ std::vector<std::wstring> MsInstallerDatabase::GetTableNames() const
 {
   vector<wstring> tableNames;
 
-  MsInstallerView view(mDatabaseHandle, L"_Tables", { L"Name" });
+  MsInstallerView view(mDatabaseHandle, L"_Tables", ColumnSelector({ L"Name" }));
 
   auto fetched = view.GetNext();
   while (fetched.first)

@@ -5,24 +5,21 @@
 
 MsInstallerView::MsInstallerView(Utility::DatabaseHandle aDatabaseHandle,
                                  const wstring &         aTableName,
-                                 const vector<wstring> & aTableColumns /*= { L"*" }*/,
+                                 const ColumnSelector &  aColumnSelector /*= ColumnSelector()*/,
                                  const Predicate &       aPredicate /*= Predicate()*/)
   : mDatabaseHandle(aDatabaseHandle)
   , mViewHandle(0)
   , mCurrentRecordHandle(0)
   , mState(State::UNINITIALIZED)
-  , mColumnNames(aTableColumns)
+  , mColumnNames(aColumnSelector.GetColumnNames())
 {
-  wstring columns = accumulate(aTableColumns.begin(),
-                               aTableColumns.end(),
-                               wstring(),
-                               [](const wstring & aResult, const wstring & aColumnName) {
-                                 return aResult == L"" ? aColumnName : aResult + L"," + aColumnName;
-                               });
+  wstring query = aColumnSelector.Get() + L" FROM " + aTableName;
 
-  wstring query = L"SELECT " + columns + L" FROM " + aTableName + L" " + aPredicate.Get();
+  // add the condition only if it has any variables
+  wstring predicateStr = aPredicate.Get();
+  query += predicateStr.empty() ? L"" : L" " + predicateStr;
 
-  ::MsiDatabaseOpenView(aDatabaseHandle, query.c_str(), &mViewHandle);
+  auto st = ::MsiDatabaseOpenView(aDatabaseHandle, query.c_str(), &mViewHandle);
 }
 
 void MsInstallerView::Execute()

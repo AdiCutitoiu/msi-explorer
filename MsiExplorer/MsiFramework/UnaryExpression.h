@@ -4,7 +4,7 @@
 class UnaryExpression : public Expression
 {
 public:
-  UnaryExpression(std::shared_ptr<Expression> aExpression);
+  explicit UnaryExpression(std::shared_ptr<Expression> aExpression);
 
 protected:
   std::map<wstring, Expression *> BuildVariableMap() override;

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "ColumnSelector.h"
 #include "DatabaseHandle.h"
 #include "MsInstallerCell.h"
 #include "MsInstallerRecord.h"
@@ -18,10 +19,10 @@ public:
    *
    * @param aTableColumns a vector specifying the columns in the view
    */
-  MsInstallerView(Utility::DatabaseHandle           aDatabaseHandle,
-                  const std::wstring &              aTableName,
-                  const std::vector<std::wstring> & aTableColumns = { L"*" },
-                  const Predicate &                 aPredicate    = Predicate());
+  MsInstallerView(Utility::DatabaseHandle aDatabaseHandle,
+                  const std::wstring &    aTableName,
+                  const ColumnSelector &  aColumnSelector = ColumnSelector(),
+                  const Predicate &       aPredicate      = Predicate());
 
   /**
    * @brief updates the current record with aRecord
@@ -46,6 +47,10 @@ public:
    */
   std::pair<bool, MsInstallerRecord> GetNext();
 
+  /**
+   * @returns a vector containing the names of the columns, or {L"*"} if no specific column was
+   * requested
+   */
   vector<wstring> GetColumnNames() const;
 
 private:

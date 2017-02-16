@@ -7,7 +7,7 @@ class Predicate : public Expression
 public:
   Predicate();
 
-  Predicate(const shared_ptr<Expression> & aExpression);
+  explicit Predicate(const shared_ptr<Expression> & aExpression);
 
   void SetVariable(const wstring & aVariableName, const wstring & aVariableValue);
 
