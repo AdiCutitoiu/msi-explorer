@@ -6,7 +6,7 @@ UnaryExpression::UnaryExpression(std::shared_ptr<Expression> aExpression)
 {
 }
 
-std::map<wstring, Expression *> UnaryExpression::GetVariables()
+/*virtual*/ std::map<wstring, Expression *> UnaryExpression::BuildVariableMap()
 {
-  return mExpression->GetVariables();
+  return Expression::CallBuildVariableMap(mExpression.get());
 }

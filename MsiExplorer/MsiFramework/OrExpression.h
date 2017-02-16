@@ -6,5 +6,6 @@ class OrExpression : public MultipleExpression
 public:
   OrExpression(vector<shared_ptr<Expression>> aExpressions);
 
-  std::wstring Get() const override;
+protected:
+  std::wstring BuildCondition() const override;
 };

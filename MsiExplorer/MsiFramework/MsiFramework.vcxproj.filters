@@ -78,6 +78,9 @@
     <ClInclude Include="OrExpression.h">
       <Filter>Header Files\Expression</Filter>
     </ClInclude>
+    <ClInclude Include="Predicate.h">
+      <Filter>Header Files\Expression</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -129,6 +132,9 @@
       <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="VariableExpression.cpp">
+      <Filter>Source Files\Expression</Filter>
+    </ClCompile>
+    <ClCompile Include="Predicate.cpp">
       <Filter>Source Files\Expression</Filter>
     </ClCompile>
   </ItemGroup>

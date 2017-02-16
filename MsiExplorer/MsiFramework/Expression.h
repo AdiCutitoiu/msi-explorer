@@ -2,11 +2,18 @@
 
 class Expression
 {
-public:
-  virtual std::wstring Get() const = 0;
-
-  virtual std::map<wstring, Expression *> GetVariables() = 0;
-
 protected:
-  static std::map<wstring, Expression *> GetVariables(Expression * aExpression);
+  virtual std::wstring BuildCondition() const = 0;
+
+  /**
+   * Caller for virtual function GetVariables()
+   */
+  static std::map<wstring, Expression *> CallBuildVariableMap(Expression * aExpression);
+
+  /**
+   * Caller for virtual function BuildCondition
+   */
+  static std::wstring CallBuildCondition(const Expression * aExpression);
+
+  virtual std::map<wstring, Expression *> BuildVariableMap() = 0;
 };

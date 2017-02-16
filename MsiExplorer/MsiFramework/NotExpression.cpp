@@ -6,7 +6,7 @@ NotExpression::NotExpression(std::shared_ptr<Expression> aExpression)
 {
 }
 
-std::wstring NotExpression::Get() const
+/*virtual*/ std::wstring NotExpression::BuildCondition() const
 {
-  return L"NOT " + mExpression->Get();
+  return L"NOT " + Expression::CallBuildCondition(mExpression.get());
 }

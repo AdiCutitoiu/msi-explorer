@@ -7,18 +7,18 @@ MultipleExpression::MultipleExpression(vector<shared_ptr<Expression>> aExpressio
   assert(mExpressions.size() >= 2);
 }
 
-std::map<wstring, Expression *> MultipleExpression::GetVariables()
+/*virtual*/ std::map<wstring, Expression *> MultipleExpression::BuildVariableMap()
 {
   // build a map containing all the variables used in this expression
   return accumulate(
     mExpressions.begin(),
     mExpressions.end(),
     map<wstring, Expression *>(),
-    [](const map<wstring, Expression *> & aPrevResult, shared_ptr<Expression> & aExpression) {
+    [this](const map<wstring, Expression *> & aPrevResult, shared_ptr<Expression> & aExpression) {
       map<wstring, Expression *> variableUnion;
 
       // get current variables
-      auto currentVariables = aExpression->GetVariables();
+      auto currentVariables = Expression::CallBuildVariableMap(aExpression.get());
 
       // add current variables to the union of variables
       set_union(aPrevResult.begin(),

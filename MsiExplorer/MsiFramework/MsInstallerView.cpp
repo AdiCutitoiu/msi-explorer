@@ -1,22 +1,26 @@
 #include "stdafx.h"
 #include "MsInstallerView.h"
+#include "Predicate.h"
 #include "RecordFieldStringGetter.h"
 
 MsInstallerView::MsInstallerView(Utility::DatabaseHandle aDatabaseHandle,
                                  const wstring &         aTableName,
-                                 const vector<wstring> & aTableColumns /*= { L"" }*/)
+                                 const vector<wstring> & aTableColumns /*= { L"*" }*/,
+                                 const Predicate &       aPredicate /*= Predicate()*/)
   : mDatabaseHandle(aDatabaseHandle)
   , mViewHandle(0)
   , mCurrentRecordHandle(0)
   , mState(State::UNINITIALIZED)
   , mColumnNames(aTableColumns)
 {
-  wstring columns = accumulate(aTableColumns.begin(), aTableColumns.end(), wstring(),
+  wstring columns = accumulate(aTableColumns.begin(),
+                               aTableColumns.end(),
+                               wstring(),
                                [](const wstring & aResult, const wstring & aColumnName) {
                                  return aResult == L"" ? aColumnName : aResult + L"," + aColumnName;
                                });
 
-  wstring query = L"SELECT " + columns + L" FROM " + aTableName;
+  wstring query = L"SELECT " + columns + L" FROM " + aTableName + L" " + aPredicate.Get();
 
   ::MsiDatabaseOpenView(aDatabaseHandle, query.c_str(), &mViewHandle);
 }

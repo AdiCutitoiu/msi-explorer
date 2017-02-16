@@ -2,6 +2,7 @@
 #include "DatabaseHandle.h"
 #include "MsInstallerTableSchema.h"
 #include "MsInstallerView.h"
+#include "Predicate.h"
 
 class MsInstallerTable
 {
@@ -56,7 +57,8 @@ public:
    *
    * @param aColumns the columns requested in the view
    */
-  MsInstallerView GetView(const std::vector<std::wstring> & aColumns = { L"*" }) const;
+  MsInstallerView GetView(const std::vector<std::wstring> & aColumns   = { L"*" },
+                          const Predicate &                 aPredicate = Predicate()) const;
 
 private:
   /**

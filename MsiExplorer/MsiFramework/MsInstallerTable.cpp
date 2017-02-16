@@ -63,10 +63,10 @@ bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
   return false;
 }
 
-MsInstallerView MsInstallerTable::GetView(
-  const std::vector<std::wstring> & aColumns /*= { L"*" }*/) const
+MsInstallerView MsInstallerTable::GetView(const std::vector<std::wstring> & aColumns /*= { L"*" }*/,
+                                          const Predicate & aPredicate /*= Predicate()*/) const
 {
-  return MsInstallerView(mDatabaseHandle, mTableName);
+  return MsInstallerView(mDatabaseHandle, mTableName, aColumns, aPredicate);
 }
 
 map<wstring, int> MsInstallerTable::FindPrimaryKeyFields() const
@@ -79,16 +79,18 @@ map<wstring, int> MsInstallerTable::FindPrimaryKeyFields() const
   // columnName - name of the column
   // index      -the position of the column in the table
   map<wstring, int> fields;
-  transform(columns.begin(), columns.end(), inserter(fields, fields.begin()),
-            [&](auto & aColumnName) {
-              return make_pair(aColumnName, distance(&columns[0], &aColumnName));
-            });
+  transform(
+    columns.begin(), columns.end(), inserter(fields, fields.begin()), [&](auto & aColumnName) {
+      return make_pair(aColumnName, distance(&columns[0], &aColumnName));
+    });
 
   // builds a map consisting of pairs <pkColumnName, index>
   // pkColumnName - the name of the primary key column
   // index        - the position of the column in the table
   map<wstring, int> primaryKeyFields;
-  copy_if(fields.begin(), fields.end(), inserter(primaryKeyFields, primaryKeyFields.begin()),
+  copy_if(fields.begin(),
+          fields.end(),
+          inserter(primaryKeyFields, primaryKeyFields.begin()),
           [&](const pair<wstring, int> & aField) {
             bool isFound = find(primaryKeyColumns.begin(), primaryKeyColumns.end(), aField.first) !=
                            primaryKeyColumns.end();

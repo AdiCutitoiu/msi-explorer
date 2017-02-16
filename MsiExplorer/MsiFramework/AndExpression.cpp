@@ -6,16 +6,16 @@ AndExpression::AndExpression(vector<shared_ptr<Expression>> aExpressions)
 {
 }
 
-std::wstring AndExpression::Get() const
+/*virtual*/ std::wstring AndExpression::BuildCondition() const
 {
-  return accumulate(mExpressions.begin(),
-                    mExpressions.end(),
-                    wstring(),
-                    [](const wstring & aConditionStr, const shared_ptr<Expression> & aExpression) {
+  return accumulate(
+    mExpressions.begin(),
+    mExpressions.end(),
+    wstring(),
+    [](const wstring & aConditionStr, const shared_ptr<Expression> & aExpression) {
 
-                      auto currentExp = L'(' + aExpression->Get() + L')';
+      auto currentExp = L'(' + Expression::CallBuildCondition(aExpression.get()) + L')';
 
-                      return aConditionStr.empty() ? currentExp
-                                                   : aConditionStr + L" AND " + currentExp;
-                    });
+      return aConditionStr.empty() ? currentExp : aConditionStr + L" AND " + currentExp;
+    });
 }

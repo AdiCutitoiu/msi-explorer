@@ -6,11 +6,12 @@ class VariableExpression : public Expression
 public:
   VariableExpression(const wstring & aName, const wstring & aValue);
 
-  std::wstring Get() const override;
-
-  std::map<wstring, Expression*> GetVariables() override;
-
   void SetValue(const wstring & aValue);
+
+protected:
+  std::wstring BuildCondition() const override;
+
+  std::map<wstring, Expression *> BuildVariableMap() override;
 
 private:
   wstring mName;

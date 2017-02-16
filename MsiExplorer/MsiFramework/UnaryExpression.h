@@ -6,7 +6,8 @@ class UnaryExpression : public Expression
 public:
   UnaryExpression(std::shared_ptr<Expression> aExpression);
 
-  std::map<wstring, Expression*> GetVariables() override;
 protected:
+  std::map<wstring, Expression *> BuildVariableMap() override;
+
   shared_ptr<Expression> mExpression;
 };

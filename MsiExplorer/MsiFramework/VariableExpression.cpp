@@ -7,12 +7,12 @@ VariableExpression::VariableExpression(const wstring & aName, const wstring & aV
 {
 }
 
-std::wstring VariableExpression::Get() const
+/*virtual*/ std::wstring VariableExpression::BuildCondition() const
 {
-  return L"(`" + mName + L"'=" + mValue + L')';
+  return L"`" + mName + L"`=" + mValue;
 }
 
-std::map<wstring, Expression *> VariableExpression::GetVariables()
+/*virtual*/ std::map<wstring, Expression *> VariableExpression::BuildVariableMap()
 {
   return { { mName, this } };
 }
