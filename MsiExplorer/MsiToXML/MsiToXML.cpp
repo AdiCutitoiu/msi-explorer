@@ -5,7 +5,6 @@
 
 #include "../MsiFramework/AndExpression.h"
 #include "../MsiFramework/MsInstallerDatabase.h"
-#include "../MsiFramework/NotExpression.h"
 #include "../MsiFramework/OrExpression.h"
 #include "../MsiFramework/Predicate.h"
 #include "../MsiFramework/VariableExpression.h"
@@ -14,11 +13,11 @@
 
 int main(int argc, char * argv[])
 {
-  auto var1 = make_shared<VariableExpression>(L"Attributes", L"1");
-  auto var2 = make_shared<VariableExpression>(L"Width", L"260");
+  auto var1 = make_shared<VariableExpression>(L"Attributes", L"4", false);
+  auto var2 = make_shared<VariableExpression>(L"Width", L"370", false);
 
   vector<shared_ptr<Expression>> vec     = { var1, var2 };
-  auto                           andexpr = (make_shared<OrExpression>(vec));
+  auto                           andexpr = (make_shared<AndExpression>(vec));
   auto                           exp     = Predicate(andexpr);
 
   auto cond = exp.Get();
@@ -53,7 +52,9 @@ int main(int argc, char * argv[])
   }
 
   std::wcout << endl;
+  var1->SetValue(L"65539");
 
+  view = table.GetView({ L"*" }, exp);
   for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
   {
     std::wcout << fetched.second[0].Get() << L'\n';

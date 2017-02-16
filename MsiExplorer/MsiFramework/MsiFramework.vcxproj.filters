@@ -72,9 +72,6 @@
     <ClInclude Include="MultipleExpression.h">
       <Filter>Header Files\Expression</Filter>
     </ClInclude>
-    <ClInclude Include="NotExpression.h">
-      <Filter>Header Files\Expression</Filter>
-    </ClInclude>
     <ClInclude Include="OrExpression.h">
       <Filter>Header Files\Expression</Filter>
     </ClInclude>
@@ -123,9 +120,6 @@
       <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="MultipleExpression.cpp">
-      <Filter>Source Files\Expression</Filter>
-    </ClCompile>
-    <ClCompile Include="NotExpression.cpp">
       <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="OrExpression.cpp">

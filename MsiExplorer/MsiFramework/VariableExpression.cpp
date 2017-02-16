@@ -1,15 +1,18 @@
 #include "stdafx.h"
 #include "VariableExpression.h"
 
-VariableExpression::VariableExpression(const wstring & aName, const wstring & aValue)
+VariableExpression::VariableExpression(const wstring & aName,
+                                       const wstring & aValue,
+                                       bool            aUseEqual /*= true*/)
   : mName(aName)
   , mValue(aValue)
+  , mUseEqual(aUseEqual)
 {
 }
 
 /*virtual*/ std::wstring VariableExpression::BuildCondition() const
 {
-  return L"`" + mName + L"`=" + mValue;
+  return L"`" + mName + L"`" + (mUseEqual ? L"=" : L"<>") + mValue;
 }
 
 /*virtual*/ std::map<wstring, Expression *> VariableExpression::BuildVariableMap()

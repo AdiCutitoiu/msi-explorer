@@ -87,7 +87,6 @@
     <ClInclude Include="MsiPropertyGetterSetter.h" />
     <ClInclude Include="MsInstallerRecord.h" />
     <ClInclude Include="MultipleExpression.h" />
-    <ClInclude Include="NotExpression.h" />
     <ClInclude Include="OrExpression.h" />
     <ClInclude Include="Predicate.h" />
     <ClInclude Include="RecordFieldStringGetter.h" />
@@ -109,7 +108,6 @@
     <ClCompile Include="MsiPropertyGetterSetter.cpp" />
     <ClCompile Include="MsInstallerRecord.cpp" />
     <ClCompile Include="MultipleExpression.cpp" />
-    <ClCompile Include="NotExpression.cpp" />
     <ClCompile Include="OrExpression.cpp" />
     <ClCompile Include="Predicate.cpp" />
     <ClCompile Include="RecordFieldStringGetter.cpp" />
