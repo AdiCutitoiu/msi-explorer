@@ -13,6 +13,12 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Expression">
+      <UniqueIdentifier>{57e10050-429e-451e-a227-31e724fb744d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Expression">
+      <UniqueIdentifier>{0020aa60-fe3a-42fe-83e9-09f389ce218c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
@@ -51,29 +57,26 @@
     <ClInclude Include="DatabaseHandle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Expression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MultipleExpression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="AndExpression.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Expression</Filter>
     </ClInclude>
-    <ClInclude Include="NotExpression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="UnaryExpression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="BracketExpression.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="OrExpression.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Expression.h">
+      <Filter>Header Files\Expression</Filter>
     </ClInclude>
     <ClInclude Include="VariableExpression.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="UnaryExpression.h">
+      <Filter>Header Files\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="MultipleExpression.h">
+      <Filter>Header Files\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="NotExpression.h">
+      <Filter>Header Files\Expression</Filter>
+    </ClInclude>
+    <ClInclude Include="OrExpression.h">
+      <Filter>Header Files\Expression</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -107,29 +110,26 @@
     <ClCompile Include="DatabaseHandle.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AndExpression.cpp">
+      <Filter>Source Files\Expression</Filter>
+    </ClCompile>
     <ClCompile Include="Expression.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="MultipleExpression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="AndExpression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="UnaryExpression.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="NotExpression.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="BracketExpression.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="OrExpression.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Expression</Filter>
+    </ClCompile>
+    <ClCompile Include="UnaryExpression.cpp">
+      <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="VariableExpression.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Expression</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

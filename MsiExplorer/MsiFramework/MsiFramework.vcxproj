@@ -76,7 +76,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AndExpression.h" />
-    <ClInclude Include="BracketExpression.h" />
     <ClInclude Include="DatabaseHandle.h" />
     <ClInclude Include="Expression.h" />
     <ClInclude Include="MsInstallerDatabase.h" />
@@ -97,7 +96,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="AndExpression.cpp" />
-    <ClCompile Include="BracketExpression.cpp" />
     <ClCompile Include="DatabaseHandle.cpp" />
     <ClCompile Include="Expression.cpp" />
     <ClCompile Include="MsInstallerDatabase.cpp" />

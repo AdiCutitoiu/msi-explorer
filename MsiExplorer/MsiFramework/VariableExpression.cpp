@@ -9,12 +9,12 @@ VariableExpression::VariableExpression(const wstring & aName, const wstring & aV
 
 std::wstring VariableExpression::Get() const
 {
-  return L'`' + mName + L"'=" + mValue;
+  return L"(`" + mName + L"'=" + mValue + L')';
 }
 
-std::map<wstring, Expression*> VariableExpression::GetVariables()
+std::map<wstring, Expression *> VariableExpression::GetVariables()
 {
-  return  { {mName, mValue} };
+  return { { mName, this } };
 }
 
 void VariableExpression::SetValue(const wstring & aValue)

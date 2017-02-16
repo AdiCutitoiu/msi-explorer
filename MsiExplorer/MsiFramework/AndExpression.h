@@ -4,7 +4,7 @@
 class AndExpression : public MultipleExpression
 {
 public:
-  AndExpression(vector<unique_ptr<Expression>> aExpressions);
+  AndExpression(vector<shared_ptr<Expression>> aExpressions);
 
   std::wstring Get() const override;
 };
