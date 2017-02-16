@@ -17,14 +17,17 @@ std::map<wstring, Expression *> MultipleExpression::GetVariables()
     [](const map<wstring, Expression *> & aPrevResult, shared_ptr<Expression> & aExpression) {
       map<wstring, Expression *> variableUnion;
 
+      // get current variables
       auto currentVariables = aExpression->GetVariables();
 
+      // add current variables to the union of variables
       set_union(aPrevResult.begin(),
                 aPrevResult.end(),
                 currentVariables.begin(),
                 currentVariables.end(),
                 inserter(variableUnion, variableUnion.begin()));
 
+      // return the union
       return variableUnion;
     });
 }
