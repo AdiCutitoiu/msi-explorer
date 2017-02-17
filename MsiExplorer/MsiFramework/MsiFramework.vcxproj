@@ -96,7 +96,6 @@
     <ClInclude Include="VariableExpression.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="AndExpression.cpp" />
     <ClCompile Include="ColumnSelector.cpp" />
     <ClCompile Include="DatabaseHandle.cpp" />
     <ClCompile Include="Expression.cpp" />
@@ -107,8 +106,6 @@
     <ClCompile Include="MsInstallerView.cpp" />
     <ClCompile Include="MsiPropertyGetterSetter.cpp" />
     <ClCompile Include="MsInstallerRecord.cpp" />
-    <ClCompile Include="MultipleExpression.cpp" />
-    <ClCompile Include="OrExpression.cpp" />
     <ClCompile Include="Predicate.cpp" />
     <ClCompile Include="RecordFieldStringGetter.cpp" />
     <ClCompile Include="stdafx.cpp">

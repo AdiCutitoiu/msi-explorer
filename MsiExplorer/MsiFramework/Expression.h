@@ -3,6 +3,9 @@
 class Expression
 {
 protected:
+  /**
+   * @returns a condition string for this expression
+   */
   virtual std::wstring BuildCondition() const = 0;
 
   /**
@@ -15,5 +18,8 @@ protected:
    */
   static std::wstring CallBuildCondition(const Expression * aExpression);
 
+  /**
+   * @returns a variable map <name, varPtr>
+   */
   virtual std::map<wstring, Expression *> BuildVariableMap() = 0;
 };

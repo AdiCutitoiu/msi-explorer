@@ -18,6 +18,7 @@
 #include <assert.h>
 #include <iostream>
 #include <iterator>
+#include <list>
 #include <map>
 #include <memory>
 #include <numeric>

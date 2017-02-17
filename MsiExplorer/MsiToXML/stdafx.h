@@ -13,21 +13,22 @@
 #include <assert.h>
 
 #include <algorithm>
-#include <numeric>
 #include <fstream>
 #include <iostream>
 #include <iterator>
+#include <list>
 #include <map>
 #include <memory>
+#include <numeric>
+#include <regex>
 #include <string>
 #include <tuple>
 #include <vector>
 #include <windows.h>
-#include <regex>
 
-#include <stdio.h>
-#include <iostream>
 #include <fstream>
+#include <iostream>
+#include <stdio.h>
 
 #include <Msi.h>
 
