@@ -1,7 +1,8 @@
 #include "stdafx.h"
 #include "TableSchemaWriter.h"
 
-TableSchemaWriter::TableSchemaWriter(std::wostream & aOstream, const MsInstallerTableSchema & aSchema)
+TableSchemaWriter::TableSchemaWriter(std::wostream &                aOstream,
+                                     const MsInstallerTableSchema & aSchema)
   : Writer(aOstream)
   , kSchema(aSchema)
 {
@@ -18,10 +19,10 @@ void TableSchemaWriter::Write() const
   }
 
   mOstream << L"\t\t</Schema>\n";
-
 }
 
-void TableSchemaWriter::WriteColumnTag(const MsInstallerTableSchema::ColumnAttributes & aAttributes) const
+void TableSchemaWriter::WriteColumnTag(
+  const MsInstallerTableSchema::ColumnAttributes & aAttributes) const
 {
   using ID = MsInstallerTableSchema::ID;
 
@@ -37,5 +38,5 @@ void TableSchemaWriter::WriteColumnTag(const MsInstallerTableSchema::ColumnAttri
 
   mOstream << L"PrimaryKey=\"" << (get<ID::ID_PRIMARY_KEY>(aAttributes) ? L"T" : L"F") << L"\"";
 
-  mOstream << L">\n";
+  mOstream << L"/>\n";
 }

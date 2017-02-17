@@ -55,6 +55,8 @@ MultipleExpression::MultipleExpression(const shared_ptr<Expression> & aFirst,
 
       // get current variables
       auto currentVariables = Expression::CallBuildVariableMap(aExpression.get());
+      // auto currentVariables = std::bind(&MultipleExpression::BuildVariableMap,
+      // aExpression.get())();
 
       // add current variables to the union of variables
       set_union(aPrevResult.begin(),

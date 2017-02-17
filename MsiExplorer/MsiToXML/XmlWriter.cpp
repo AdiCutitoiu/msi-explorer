@@ -10,6 +10,7 @@ XmlWriter::XmlWriter(std::wostream & aOstream, const wstring & aMsiPath)
 
 void XmlWriter::Write() const
 {
+  mOstream << L"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
   mOstream << L"<Database>\n";
 
   auto tableNames = kDatabase.GetTableNames();

@@ -24,7 +24,7 @@ int main(int argc, char * argv[])
 
   auto start = ::GetTickCount();
 
-  /*try
+  try
   {
     CmdHandler cmd(argc, argv);
 
@@ -38,27 +38,27 @@ int main(int argc, char * argv[])
   catch (std::wstring & aMessage)
   {
     wcout << aMessage << L'\n';
-  }*/
-
-  MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
-  auto                table  = db.GetTable(L"Dialog");
-  auto                schema = table.GetTableSchema();
-
-  auto view = table.GetView({ L"*" }, exp);
-
-  for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
-  {
-    std::wcout << fetched.second[0].Get() << L'\n';
   }
+  /*
+    MsInstallerDatabase db(L"C:\\Users\\Adi Cutitoiu\\Desktop\\sample.msi");
+    auto                table  = db.GetTable(L"Dialog");
+    auto                schema = table.GetTableSchema();
 
-  std::wcout << endl;
-  var1->SetValue(L"65539");
+    auto view = table.GetView({ L"*" }, exp);
 
-  view = table.GetView({ L"*" }, exp);
-  for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
-  {
-    std::wcout << fetched.second[0].Get() << L'\n';
-  }
+    for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
+    {
+      std::wcout << fetched.second[0].Get() << L'\n';
+    }
+
+    std::wcout << endl;
+    var1->SetValue(L"65539");
+
+    view = table.GetView({ L"*" }, exp);
+    for (auto fetched = view.GetNext(); fetched.first; fetched = view.GetNext())
+    {
+      std::wcout << fetched.second[0].Get() << L'\n';
+    }*/
 
   cout << "Time: " << double(::GetTickCount() - start) / 1000 << " seconds";
   return 0;

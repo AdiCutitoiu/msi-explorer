@@ -26,21 +26,18 @@ void TableContentWriter::WriteRow(const MsInstallerRecord & aRow) const
   mOstream << L"\t\t\t" << L"<Row";
 
   // puts two string together separated by a space
-  auto addStrings = [](const wstring & aResult, const wstring & aTagData)
-  {
+  auto addStrings = [](const wstring & aResult, const wstring & aTagData) {
     return aResult + L" " + aTagData;
   };
 
   // concatenates name with value, Eg: Name="Dialog"
-  auto concatValues = [](const wstring & aColName, const MsInstallerCell & aCell)
-  {
+  auto concatValues = [](const wstring & aColName, const MsInstallerCell & aCell) {
     return aColName + L"=\"" + aCell.Get() + L"\"";
   };
 
   // output all the tags
-  mOstream << std::inner_product(mColumnNames.begin(), mColumnNames.end(), 
-                                 aRow.cbegin(), wstring(),
-                                 addStrings, concatValues);
+  mOstream << std::inner_product(
+    mColumnNames.begin(), mColumnNames.end(), aRow.cbegin(), wstring(), addStrings, concatValues);
 
-  mOstream << L">\n";
+  mOstream << L"/>\n";
 }

@@ -16,6 +16,7 @@
 #include <MsiQuery.h>
 #include <algorithm>
 #include <assert.h>
+#include <functional>
 #include <iostream>
 #include <iterator>
 #include <list>
