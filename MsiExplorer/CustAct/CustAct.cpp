@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "../MsiFramework/MsInstallerDatabase.h"
+#include "../MsiFramework/OrExpression.h"
 
 UINT WINAPI DoStuff(MSIHANDLE aSession)
 {
@@ -10,9 +11,13 @@ UINT WINAPI DoStuff(MSIHANDLE aSession)
 
   MsInstallerDatabase db(aSession);
 
-  auto table = db.GetTable(L"Control");
+  auto table = db.GetTable(L"Control2");
   auto var   = make_shared<VariableExpression>(L"Type", L"Text");
-  auto view  = table.GetView(ColumnSelector(), Predicate(var));
+  auto var2  = make_shared<VariableExpression>(L"Type", L"PushButton");
+  auto orExp = make_shared<OrExpression>(var, var2);
+  auto pred  = Predicate(orExp);
+  pred.SetVariable(L"Type", L"Combobox");
+  auto view = table.GetView(ColumnSelector(), Predicate(orExp));
 
   vector<MsInstallerRecord> toModify;
 
