@@ -86,6 +86,7 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CharacterEscaper.h" />
     <ClInclude Include="CmdHandler.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="TableContentWriter.h" />
@@ -96,6 +97,7 @@
     <ClInclude Include="XmlWriter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CharacterEscaper.cpp" />
     <ClCompile Include="CmdHandler.cpp" />
     <ClCompile Include="MsiToXML.cpp" />
     <ClCompile Include="stdafx.cpp">

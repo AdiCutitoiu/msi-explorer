@@ -8,5 +8,5 @@ public:
   virtual void Write() const = 0;
 
 protected:
-  std::wostream & mOstream;
+  std::wostream & mOstream;  // ostream of the writer
 };

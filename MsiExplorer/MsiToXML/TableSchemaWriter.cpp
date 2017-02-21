@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TableSchemaWriter.h"
+#include "CharacterEscaper.h"
 
 TableSchemaWriter::TableSchemaWriter(std::wostream &                aOstream,
                                      const MsInstallerTableSchema & aSchema)
@@ -24,15 +25,16 @@ void TableSchemaWriter::Write() const
 void TableSchemaWriter::WriteColumnTag(
   const MsInstallerTableSchema::ColumnAttributes & aAttributes) const
 {
+  using namespace SeqEscape;
   using ID = MsInstallerTableSchema::ID;
 
   mOstream << L"\t\t\t";
 
   mOstream << L"<Column ";
 
-  mOstream << L"Name=\"" << get<ID::ID_COLUMN_NAME>(aAttributes) << L"\" ";
+  mOstream << L"Name=\"" << Escape(get<ID::ID_COLUMN_NAME>(aAttributes)) << L"\" ";
 
-  mOstream << L"Type=\"" << get<ID::ID_COLUMN_TYPE>(aAttributes) << L"\" ";
+  mOstream << L"Type=\"" << Escape(get<ID::ID_COLUMN_TYPE>(aAttributes)) << L"\" ";
 
   mOstream << L"Nullable=\"" << (get<ID::ID_NULLABLE>(aAttributes) ? "T" : "F") << L"\" ";
 

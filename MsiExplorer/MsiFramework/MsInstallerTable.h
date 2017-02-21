@@ -57,8 +57,8 @@ public:
    *
    * @param aColumns the columns requested in the view
    */
-  MsInstallerView GetView(const std::vector<std::wstring> & aColumns   = { L"*" },
-                          const Predicate &                 aPredicate = Predicate()) const;
+  MsInstallerView GetView(const ColumnSelector & aColumnSelector = ColumnSelector(),
+                          const Predicate &      aPredicate      = Predicate()) const;
 
 private:
   /**

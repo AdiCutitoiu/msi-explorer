@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "TableContentWriter.h"
+#include "CharacterEscaper.h"
 
 TableContentWriter::TableContentWriter(std::wostream & aOstream, const MsInstallerTable & aTable)
   : Writer(aOstream)
@@ -23,6 +24,8 @@ void TableContentWriter::Write() const
 
 void TableContentWriter::WriteRow(const MsInstallerRecord & aRow) const
 {
+  using namespace SeqEscape;
+
   mOstream << L"\t\t\t" << L"<Row";
 
   // puts two string together separated by a space
@@ -32,7 +35,7 @@ void TableContentWriter::WriteRow(const MsInstallerRecord & aRow) const
 
   // concatenates name with value, Eg: Name="Dialog"
   auto concatValues = [](const wstring & aColName, const MsInstallerCell & aCell) {
-    return aColName + L"=\"" + aCell.Get() + L"\"";
+    return aColName + L"=\"" + Escape(aCell.Get()) + L"\"";
   };
 
   // output all the tags

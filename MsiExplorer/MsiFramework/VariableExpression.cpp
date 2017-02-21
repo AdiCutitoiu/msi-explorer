@@ -12,7 +12,7 @@ VariableExpression::VariableExpression(const wstring & aName,
 
 /*virtual*/ std::wstring VariableExpression::BuildCondition() const
 {
-  return L"`" + mName + L"`" + (mUseEqual ? L"=" : L"<>") + mValue;
+  return L"`" + mName + L"`" + (mUseEqual ? L"=" : L"<>") + L'\'' + mValue + L'\'';
 }
 
 /*virtual*/ std::map<wstring, Expression *> VariableExpression::BuildVariableMap()

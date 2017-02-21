@@ -63,10 +63,11 @@ bool MsInstallerTable::UpdateRow(const MsInstallerRecord & aRecord)
   return false;
 }
 
-MsInstallerView MsInstallerTable::GetView(const std::vector<std::wstring> & aColumns /*= { L"*" }*/,
-                                          const Predicate & aPredicate /*= Predicate()*/) const
+MsInstallerView MsInstallerTable::GetView(
+  const ColumnSelector & aColumnSelector /* =ColumnSelector()*/,
+  const Predicate &      aPredicate /*= Predicate()*/) const
 {
-  return MsInstallerView(mDatabaseHandle, mTableName, aColumns, aPredicate);
+  return MsInstallerView(mDatabaseHandle, mTableName, aColumnSelector, aPredicate);
 }
 
 map<wstring, int> MsInstallerTable::FindPrimaryKeyFields() const

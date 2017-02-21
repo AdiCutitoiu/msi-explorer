@@ -39,6 +39,13 @@ public:
   bool Insert(const MsInstallerRecord & aRecord);
 
   /**
+   * @brief inserts a temporary record into the table(msi must be running)
+   *
+   * @param aRecord the record to be inserted
+   */
+  bool InsertTemporary(const MsInstallerRecord & aRecord);
+
+  /**
    * A call to GetNext after the bool in the return is false will cause another execution of the
    * view.
    *
@@ -52,6 +59,13 @@ public:
    * requested
    */
   vector<wstring> GetColumnNames() const;
+
+  /**
+   * @brief deletes the current row from the table
+   *
+   * @returns true if the row was deleted successfully
+   */
+  bool DeleteCurrent();
 
 private:
   enum class State  // the state of the view
