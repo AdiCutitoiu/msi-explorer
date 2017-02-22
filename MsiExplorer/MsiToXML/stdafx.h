@@ -13,6 +13,7 @@
 #include <assert.h>
 
 #include <algorithm>
+#include <deque>
 #include <fstream>
 #include <iostream>
 #include <iterator>
@@ -20,7 +21,9 @@
 #include <map>
 #include <memory>
 #include <numeric>
+#include <queue>
 #include <regex>
+#include <stack>
 #include <string>
 #include <tuple>
 #include <vector>

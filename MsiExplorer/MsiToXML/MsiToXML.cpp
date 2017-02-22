@@ -9,6 +9,7 @@
 #include "../MsiFramework/Predicate.h"
 #include "../MsiFramework/VariableExpression.h"
 #include "CmdHandler.h"
+#include "MsiXMLTreeBuilder.h"
 #include "XmlWriter.h"
 
 int main(int argc, char * argv[])
@@ -27,13 +28,14 @@ int main(int argc, char * argv[])
   try
   {
     CmdHandler cmd(argc, argv);
+    auto       path    = cmd.GetMsiPath();
+    auto       xmlPath = cmd.GetXmlPath();
 
-    auto path = cmd.GetMsiPath();
+    MsiXMLTreeBuilder treeBuilder;
+    auto              root = treeBuilder.GetRoot(MsInstallerDatabase(path));
 
-    auto      xmlPath = cmd.GetXmlPath();
-    wofstream out(xmlPath);
-
-    XmlWriter(out, path).Write();
+    XmlWriter writer(xmlPath, true);
+    writer.Write(root);
   }
   catch (std::wstring & aMessage)
   {
