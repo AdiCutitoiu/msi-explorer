@@ -30,9 +30,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MsiPropertyGetterSetter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="MsInstallerDatabase.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -81,12 +78,12 @@
     <ClInclude Include="ColumnSelector.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MsiUtility.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MsiPropertyGetterSetter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="MsInstallerDatabase.cpp">
@@ -126,6 +123,9 @@
       <Filter>Source Files\Expression</Filter>
     </ClCompile>
     <ClCompile Include="ColumnSelector.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MsiUtility.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

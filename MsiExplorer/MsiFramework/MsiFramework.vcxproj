@@ -84,7 +84,7 @@
     <ClInclude Include="MsInstallerTable.h" />
     <ClInclude Include="MsInstallerTableSchema.h" />
     <ClInclude Include="MsInstallerView.h" />
-    <ClInclude Include="MsiPropertyGetterSetter.h" />
+    <ClInclude Include="MsiUtility.h" />
     <ClInclude Include="MsInstallerRecord.h" />
     <ClInclude Include="MultipleExpression.h" />
     <ClInclude Include="OrExpression.h" />
@@ -104,7 +104,7 @@
     <ClCompile Include="MsInstallerTable.cpp" />
     <ClCompile Include="MsInstallerTableSchema.cpp" />
     <ClCompile Include="MsInstallerView.cpp" />
-    <ClCompile Include="MsiPropertyGetterSetter.cpp" />
+    <ClCompile Include="MsiUtility.cpp" />
     <ClCompile Include="MsInstallerRecord.cpp" />
     <ClCompile Include="Predicate.cpp" />
     <ClCompile Include="RecordFieldStringGetter.cpp" />

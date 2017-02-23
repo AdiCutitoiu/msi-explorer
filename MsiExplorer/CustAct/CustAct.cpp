@@ -3,6 +3,7 @@
 
 #include "stdafx.h"
 #include "../MsiFramework/MsInstallerDatabase.h"
+#include "../MsiFramework/MsiUtility.h"
 #include "../MsiFramework/OrExpression.h"
 
 UINT WINAPI DoStuff(MSIHANDLE aSession)
@@ -11,7 +12,7 @@ UINT WINAPI DoStuff(MSIHANDLE aSession)
 
   MsInstallerDatabase db(aSession);
 
-  auto table = db.GetTable(L"Control2");
+  auto table = db.GetTable(L"Control");
   auto var   = make_shared<VariableExpression>(L"Type", L"Text");
   auto var2  = make_shared<VariableExpression>(L"Type", L"PushButton");
   auto orExp = make_shared<OrExpression>(var, var2);
@@ -30,9 +31,9 @@ UINT WINAPI DoStuff(MSIHANDLE aSession)
 
   for (auto & modRecord : toModify)
   {
-    auto content = modRecord[9].Get();
+    auto content = MsiUtility::FormatString(aSession, modRecord[9].Get());
 
-    modRecord[9].Set(L'[' + to_wstring(content.size()) + L']' + content);
+    modRecord[9].Set(L'[' + to_wstring(content.size()) + L']' + modRecord[9].Get());
 
     bool success = view.InsertTemporary(modRecord);
   }

@@ -61,6 +61,9 @@ wstring XMLNode::GetName() const
 
 XMLNode::~XMLNode()
 {
+  if (mChildren.empty())
+    return;
+
   deque<unique_ptr<XMLNode>> toDelete;
   move(mChildren.begin(), mChildren.end(), back_inserter(toDelete));
   mChildren.clear();
@@ -69,20 +72,17 @@ XMLNode::~XMLNode()
   {
     auto toPop = toDelete.front().get();
 
-    if (!toPop)
-      int x = 2;
-
-    auto & addedChildren = toPop->mChildren;
-    move(addedChildren.begin(), addedChildren.end(), back_inserter(toDelete));
-    addedChildren.clear();
+    auto & toDeleteChildren = toPop->mChildren;
+    move(toDeleteChildren.begin(), toDeleteChildren.end(), back_inserter(toDelete));
+    toDeleteChildren.clear();
 
     toDelete.pop_front();
   }
 }
 
-XMLNode::XMLNode(const AttributeName &   aName,
-                 const vector<Attribute> aAttributes,
-                 bool                    aIsMultiline)
+XMLNode::XMLNode(const AttributeName &     aName,
+                 const vector<Attribute> & aAttributes,
+                 bool                      aIsMultiline)
   : mName(aName)
   , mAttributes(aAttributes)
   , mIsMultiline(aIsMultiline)
