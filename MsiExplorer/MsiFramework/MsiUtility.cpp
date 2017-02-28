@@ -21,20 +21,21 @@ void SetProperty(MSIHANDLE aSession, const wstring & aPropertyName, const wstrin
 {
   ::MsiSetProperty(aSession, aPropertyValue.c_str(), aPropertyValue.c_str());
 }
-wstring FormatString(MSIHANDLE aSession, wstring aString)
+wstring FormatField(MSIHANDLE aSession, const MsInstallerRecord & aRecord, int aFieldNumber)
 {
+  MSIHANDLE record = ::MsiCreateRecord(aRecord.GetFieldNumber());
+
+  for (int i = 1; i <= aRecord.GetFieldNumber(); i++)
+  {
+    ::MsiRecordSetString(record, i, aRecord[i - 1].Get().c_str());
+  }
+  ::MsiRecordSetString(record, 0, aRecord[aFieldNumber].Get().c_str());
+
   DWORD valueBuffer = 0;
-
-  auto tempRecord = ::MsiCreateRecord(1);
-  ::MsiRecordSetString(aSession, 0, aString.c_str());
-
-  ::MsiFormatRecord(aSession, tempRecord, TEXT(""), &valueBuffer);
-
+  ::MsiFormatRecord(aSession, record, TEXT(""), &valueBuffer);
   wstring result(valueBuffer, L' ');
   ++valueBuffer;
-
-  ::MsiFormatRecord(aSession, tempRecord, &result[0], &valueBuffer);
-  ::MsiCloseHandle(tempRecord);
+  ::MsiFormatRecord(aSession, record, &result[0], &valueBuffer);
 
   return result;
 }

@@ -17,8 +17,7 @@ UINT WINAPI DoStuff(MSIHANDLE aSession)
   auto var2  = make_shared<VariableExpression>(L"Type", L"PushButton");
   auto orExp = make_shared<OrExpression>(var, var2);
   auto pred  = Predicate(orExp);
-  pred.SetVariable(L"Type", L"Combobox");
-  auto view = table.GetView(ColumnSelector(), Predicate(orExp));
+  auto view  = table.GetView(ColumnSelector(), Predicate(orExp));
 
   vector<MsInstallerRecord> toModify;
 
@@ -31,11 +30,13 @@ UINT WINAPI DoStuff(MSIHANDLE aSession)
 
   for (auto & modRecord : toModify)
   {
-    auto content = MsiUtility::FormatString(aSession, modRecord[9].Get());
+    auto record = modRecord;
+    record[9].Set(MsiUtility::FormatField(aSession, record, 9));
+    record[9].Set(MsiUtility::FormatField(aSession, record, 9));
 
-    modRecord[9].Set(L'[' + to_wstring(content.size()) + L']' + modRecord[9].Get());
+    record[9].Set(L'[' + to_wstring(record[9].Get().size()) + L']' + modRecord[9].Get());
 
-    bool success = view.InsertTemporary(modRecord);
+    bool success = view.InsertTemporary(record);
   }
 
   db.CommitChanges();

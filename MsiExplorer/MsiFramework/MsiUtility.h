@@ -1,4 +1,5 @@
 #pragma once
+#include "MsInstallerRecord.h"
 
 namespace MsiUtility
 {
@@ -22,5 +23,12 @@ wstring GetProperty(MSIHANDLE aSession, const wstring & aPropertyName);
  */
 void SetProperty(MSIHANDLE aSession, const wstring & aPropertyName, const wstring & aPropertyValue);
 
-wstring FormatString(MSIHANDLE aDatabaseHandle, wstring aRecord);
+/**
+ * @param aSession handle to install
+ *
+ * @param the record to be formatted
+ *
+ * @param aFieldNumber the field to be formatted
+ */
+wstring FormatField(MSIHANDLE aSession, const MsInstallerRecord & aRecord, int aFieldNumber);
 };
