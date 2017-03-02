@@ -12,11 +12,11 @@ public:
 
   XMLTreeIterator operator++(int);
 
-  const XMLNode * operator->();
+  const XMLNode * operator->() const;
 
-  bool operator!=(const XMLTreeIterator & aIterator);
+  bool operator!=(const XMLTreeIterator & aIterator) const;
 
-  bool operator==(const XMLTreeIterator & aIterator);
+  bool operator==(const XMLTreeIterator & aIterator) const;
 
 private:
   void FindNext();

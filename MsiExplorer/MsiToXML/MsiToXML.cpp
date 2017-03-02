@@ -42,6 +42,7 @@ int main(int argc, char * argv[])
       str += 'a';
       counter++;
     }
+
     wcout << counter << endl;
 
     // XmlWriter writer(xmlPath, true);

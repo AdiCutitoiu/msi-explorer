@@ -48,17 +48,17 @@ XMLTreeIterator XMLTreeIterator::operator++(int)
   return prevIter;
 }
 
-const XMLNode * XMLTreeIterator::operator->()
+const XMLNode * XMLTreeIterator::operator->() const
 {
   return mCurrentNode;
 }
 
-bool XMLTreeIterator::operator!=(const XMLTreeIterator & aIterator)
+bool XMLTreeIterator::operator!=(const XMLTreeIterator & aIterator) const
 {
   return !this->operator==(aIterator);
 }
 
-bool XMLTreeIterator::operator==(const XMLTreeIterator & aIterator)
+bool XMLTreeIterator::operator==(const XMLTreeIterator & aIterator) const
 {
   return mPrevNode == aIterator.mPrevNode && mCurrentNode == aIterator.mCurrentNode;
 }
