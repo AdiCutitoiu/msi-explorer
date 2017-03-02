@@ -29,6 +29,7 @@ bool XMLNode::AddChild(unique_ptr<XMLNode> aXMLNode)
     return false;
 
   mChildren.push_back(std::move(aXMLNode));
+  mChildren.back()->mParent = this;
   return true;
 }
 
@@ -44,9 +45,24 @@ vector<const XMLNode *> XMLNode::GetChildren() const
   return children;
 }
 
+const XMLNode * XMLNode::GetChild(UINT aIndex) const
+{
+  return aIndex < mChildren.size() ? mChildren[aIndex].get() : nullptr;
+}
+
+const XMLNode * XMLNode::GetParent() const
+{
+  return mParent;
+}
+
 bool XMLNode::HasChildren() const
 {
   return !mChildren.empty();
+}
+
+UINT XMLNode::GetChildCount() const
+{
+  return mChildren.size();
 }
 
 vector<XMLNode::Attribute> XMLNode::GetAttributes() const
@@ -83,7 +99,8 @@ XMLNode::~XMLNode()
 XMLNode::XMLNode(const AttributeName &     aName,
                  const vector<Attribute> & aAttributes,
                  bool                      aIsMultiline)
-  : mName(aName)
+  : mParent(nullptr)
+  , mName(aName)
   , mAttributes(aAttributes)
   , mIsMultiline(aIsMultiline)
 {

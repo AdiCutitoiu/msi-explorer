@@ -38,7 +38,7 @@ public:
 
 private:
   // an element of the stack
-  using stackElem = pair<const XMLNode *, char>;  // WARNING WITH BOOL
+  using stackElem = pair<const XMLNode *, UINT>;  // WARNING WITH BOOL
 
   // the state of a node
   enum : char  // WARNING WITH BOOL
@@ -52,7 +52,7 @@ private:
    *
    * @param aXMLNode the node to be written
    */
-  void WriteBeginNode(const XMLNode * aXMLNode);
+  void WriteNode(const XMLNode * aXMLNode);
 
   /**
    * @brief writes a multiline node in begin format: </Node>

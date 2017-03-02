@@ -56,9 +56,28 @@ public:
   vector<const XMLNode *> GetChildren() const;
 
   /**
+   * @returns the i-th child of this node or null ptr if the specified child does not exist
+   *
+   * @param aIndex the requested child
+   *
+   * @return a pointer to the requested child
+   */
+  const XMLNode * GetChild(UINT aIndex) const;
+
+  /**
+   * @returns a pointer to the parent of the node
+   */
+  const XMLNode * GetParent() const;
+
+  /**
    * @returns true if this node has children
    */
   bool HasChildren() const;
+
+  /**
+   * @returns the number of children of this node
+   */
+  UINT GetChildCount() const;
 
   /**
    * @returns the attributes of this node
@@ -85,6 +104,7 @@ private:
    */
   XMLNode(const AttributeName & aName, const vector<Attribute> & aAttributes, bool aIsMultiline);
 
+  XMLNode *                   mParent;       // the parent of this node
   vector<unique_ptr<XMLNode>> mChildren;     // children of this node
   wstring                     mName;         // the name of the node
   vector<Attribute>           mAttributes;   // the attributes of the node

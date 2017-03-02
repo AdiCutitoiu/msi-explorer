@@ -19,25 +19,27 @@ void XmlWriter::Write(const unique_ptr<XMLNode> & aRoot)
 
   mOfstream << L"<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
 
-  mStack.push(make_pair(aRoot.get(), NOT_PROCESSED));
+  WriteNode(aRoot.get());
+  mStack.push(make_pair(aRoot.get(), 0));
 
   while (!mStack.empty())
   {
-    auto poppedElement = mStack.top();
+    // find the next unprocessed child of the node
+    auto   currentNode = mStack.top().first;
+    auto & childIndex  = mStack.top().second;
 
-    UpdateStack();
+    // no unprocessed child, must close the current node tag
+    if (childIndex == currentNode->GetChildCount())
+    {
+      WriteEndNode(currentNode);
+      mStack.pop();
+      continue;
+    }
 
-    if (poppedElement.first->IsMultiline())
-    {
-      if (poppedElement.second == NOT_PROCESSED)
-        WriteBeginNode(poppedElement.first);
-      else
-        WriteEndNode(poppedElement.first);
-    }
-    else
-    {
-      WriteSingleLineNode(poppedElement.first);
-    }
+    // unprocessed child, write and push it to the stack
+    auto toPushChild = currentNode->GetChild(childIndex++);
+    WriteNode(toPushChild);
+    mStack.push(make_pair(toPushChild, 0));
   }
 
   mOfstream.close();
@@ -53,7 +55,7 @@ void XmlWriter::EnableSpaceIndentation()
   mUseTabs = false;
 }
 
-void XmlWriter::WriteBeginNode(const XMLNode * aXMLNode)
+void XmlWriter::WriteNode(const XMLNode * aXMLNode)
 {
   using namespace SeqEscape;
   wstring tag = L'<' + aXMLNode->GetName();
@@ -63,15 +65,20 @@ void XmlWriter::WriteBeginNode(const XMLNode * aXMLNode)
   {
     tag += L" " + attribute.first + L"=\"" + Escape(attribute.second) + L'\"';
   }
-  tag += L">";
+
+  tag += aXMLNode->IsMultiline() ? L">" : L"/>";
 
   PrintLine(tag);
 
-  IncrementIndentation();
+  if (aXMLNode->IsMultiline())
+    IncrementIndentation();
 }
 
 void XmlWriter::WriteEndNode(const XMLNode * aXMLNode)
 {
+  if (aXMLNode->IsSingleLine())
+    return;
+
   DecrementIndentation();
 
   wstring tag = L"</" + aXMLNode->GetName() + L">";

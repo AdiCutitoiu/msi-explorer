@@ -92,6 +92,8 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="XMLNode.h" />
     <ClInclude Include="MsiXMLTreeBuilder.h" />
+    <ClInclude Include="XMLTree.h" />
+    <ClInclude Include="XMLTreeIterator.h" />
     <ClInclude Include="XmlWriter.h" />
   </ItemGroup>
   <ItemGroup>
@@ -104,6 +106,8 @@
     </ClCompile>
     <ClCompile Include="XMLNode.cpp" />
     <ClCompile Include="MsiXMLTreeBuilder.cpp" />
+    <ClCompile Include="XMLTree.cpp" />
+    <ClCompile Include="XMLTreeIterator.cpp" />
     <ClCompile Include="XmlWriter.cpp" />
   </ItemGroup>
   <ItemGroup>

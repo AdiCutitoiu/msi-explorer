@@ -39,6 +39,12 @@
     <ClInclude Include="MsiXMLTreeBuilder.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="XMLTreeIterator.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="XMLTree.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="stdafx.cpp">
@@ -60,6 +66,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="XmlWriter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLTreeIterator.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="XMLTree.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

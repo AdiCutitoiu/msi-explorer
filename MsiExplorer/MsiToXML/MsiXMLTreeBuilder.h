@@ -1,6 +1,7 @@
 #pragma once
 #include "../MsiFramework/MsInstallerDatabase.h"
 #include "XMLNode.h"
+#include "XMLTree.h"
 
 class MsiXMLTreeBuilder
 {
@@ -10,7 +11,7 @@ public:
    *
    * @param aDatabase the msi database
    */
-  unique_ptr<XMLNode> GetRoot(const MsInstallerDatabase & aDatabase) const;
+  XMLTree GetTree(const MsInstallerDatabase & aDatabase) const;
 
 private:
   using ColAttribute = MsInstallerTableSchema::ColumnAttributes;

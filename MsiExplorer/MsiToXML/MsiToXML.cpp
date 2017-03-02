@@ -10,6 +10,7 @@
 #include "../MsiFramework/VariableExpression.h"
 #include "CmdHandler.h"
 #include "MsiXMLTreeBuilder.h"
+#include "XMLTreeIterator.h"
 #include "XmlWriter.h"
 
 int main(int argc, char * argv[])
@@ -32,10 +33,19 @@ int main(int argc, char * argv[])
     auto       xmlPath = cmd.GetXmlPath();
 
     MsiXMLTreeBuilder treeBuilder;
-    auto              root = treeBuilder.GetRoot(MsInstallerDatabase(path));
+    auto              tree = treeBuilder.GetTree(MsInstallerDatabase(path));
 
-    XmlWriter writer(xmlPath, true);
-    writer.Write(root);
+    wstring str;
+    int     counter = 0;
+    for (auto it = tree.begin(); it != tree.end(); ++it)
+    {
+      str += 'a';
+      counter++;
+    }
+    wcout << counter << endl;
+
+    // XmlWriter writer(xmlPath, true);
+    // writer.Write(root);
   }
   catch (std::wstring & aMessage)
   {

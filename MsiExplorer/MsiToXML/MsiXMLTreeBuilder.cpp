@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MsiXMLTreeBuilder.h"
 
-unique_ptr<XMLNode> MsiXMLTreeBuilder::GetRoot(const MsInstallerDatabase & aDatabase) const
+XMLTree MsiXMLTreeBuilder::GetTree(const MsInstallerDatabase & aDatabase) const
 {
   return MakeDatabaseNode(aDatabase);
 }
